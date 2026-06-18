@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation: Da Vinci | Mega Review</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tone.js for Sound Effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        :root {
+            --neon-green: #0ea5e9; /* Changed to a cyan/blue vibe for Da Vinci, despite 'green' var name */
+            --bg-dark: #020617;
+            --panel-bg: rgba(15, 23, 42, 0.8);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-dark);
+            color: #e2e8f0;
+            background-image: 
+                linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.9)),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(14, 165, 233, 0.05) 2px, rgba(14, 165, 233, 0.05) 4px);
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .cyber-font {
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            color: white;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 1s infinite;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
+            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
+            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
+            50% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00; }
+            99% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00; }
+            100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff, -0.04em -0.025em 0 #fffc00; }
+        }
+
+        /* Cyber UI Elements */
+        .cyber-panel {
+            background: var(--panel-bg);
+            border: 1px solid #0ea5e9;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.2), inset 0 0 20px rgba(14, 165, 233, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+            position: relative;
+        }
+        .cyber-panel::before, .cyber-panel::after {
+            content: ''; position: absolute; width: 10px; height: 10px; border: 2px solid #0ea5e9;
+        }
+        .cyber-panel::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .cyber-panel::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        .cyber-input {
+            background: rgba(2, 6, 23, 0.8);
+            border: 1px solid #334155;
+            color: #38bdf8;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 0.5rem;
+            outline: none;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .cyber-input:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+        .cyber-input.success { border-color: #22c55e; color: #4ade80; box-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
+        .cyber-input.error { border-color: #ef4444; color: #f87171; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); animation: shake 0.4s; }
+
+        .cyber-btn {
+            background: transparent;
+            border: 1px solid #0ea5e9;
+            color: #0ea5e9;
+            font-family: 'Share Tech Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .cyber-btn:hover {
+            background: #0ea5e9;
+            color: #020617;
+            box-shadow: 0 0 20px #0ea5e9;
+        }
+        .cyber-btn:disabled {
+            border-color: #475569; color: #475569; cursor: not-allowed; background: transparent; box-shadow: none;
+        }
+
+        /* Mission States */
+        .mission-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+        .mission-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive Elements */
+        .linker-btn {
+            background: rgba(15, 23, 42, 0.9); border: 1px solid #475569; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.2s; color: #94a3b8;
+        }
+        .linker-btn:hover { border-color: #0ea5e9; color: #0ea5e9; }
+        .linker-btn.selected { background: #0ea5e9; color: #020617; font-weight: bold; box-shadow: 0 0 15px #0ea5e9;}
+
+        .drop-zone {
+            display: inline-block; min-width: 120px; border-bottom: 2px solid #475569; padding: 0 5px; color: #38bdf8; text-align: center; cursor: pointer; transition: all 0.3s;
+        }
+        .drop-zone.filled { border-bottom-color: #0ea5e9; }
+        .drop-zone.success { border-bottom-color: #22c55e; color: #4ade80; }
+        .drop-zone.error { border-bottom-color: #ef4444; color: #f87171; animation: shake 0.4s; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        /* Typewriter effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #0ea5e9;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #0ea5e9; } }
+
+        /* Background Music Player */
+        #music-player { position: fixed; bottom: 20px; right: 20px; z-index: 1000; opacity: 0.5; transition: opacity 0.3s; }
+        #music-player:hover { opacity: 1; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-8">
+
+    <!-- Ambient Audio (YouTube embedded invisibly for background lofi) -->
+    <div id="music-player" class="bg-slate-900 border border-slate-700 p-2 rounded flex items-center gap-3">
+        <i class="fas fa-music text-slate-400"></i>
+        <button id="play-music" onclick="toggleMusic()" class="text-xs text-sky-400 hover:text-sky-300 uppercase tracking-widest cyber-font">BGM: OFF</button>
+        <div id="yt-player" class="hidden"></div>
+    </div>
+
+    <!-- Header / Progress Bar -->
+    <header class="max-w-5xl mx-auto w-full mb-8 flex flex-col md:flex-row justify-between items-center cyber-panel p-4">
+        <div class="flex items-center gap-4 mb-4 md:mb-0">
+            <i class="fas fa-fingerprint text-4xl text-sky-500"></i>
+            <div>
+                <h1 class="text-2xl font-bold tracking-widest text-white uppercase">Da Vinci <span class="text-sky-500">Agency</span></h1>
+                <p class="text-xs text-sky-400 uppercase tracking-widest cyber-font">Agent Training Protocol</p>
+            </div>
+        </div>
+        <div class="flex-1 max-w-md mx-4 w-full">
+            <div class="flex justify-between text-xs text-slate-400 cyber-font mb-1">
+                <span>SYSTEM BREACH</span>
+                <span id="progress-text">0%</span>
+            </div>
+            <div class="h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+                <div id="progress-bar" class="h-full bg-sky-500 transition-all duration-500" style="width: 0%;"></div>
+            </div>
+        </div>
+        <button onclick="overrideMission()" class="text-xs text-slate-600 hover:text-slate-400 cyber-font underline mt-4 md:mt-0" title="Teacher Bypass">Bypass</button>
+    </header>
+
+    <main class="max-w-5xl mx-auto w-full flex-1">
+        
+        <!-- Intro Screen -->
+        <section id="intro" class="mission-section active text-center flex flex-col items-center justify-center min-h-[60vh]">
+            <i class="fas fa-user-secret text-8xl text-slate-700 mb-6"></i>
+            <h2 class="text-5xl md:text-7xl font-bold cyber-font text-white mb-4 glitch">OPERATION: OVERRIDE</h2>
+            <p class="text-xl text-slate-400 mb-8 max-w-2xl leading-relaxed">Agents, the central grammar mainframe has been corrupted. You have 50 minutes to solve the linguistic puzzles, restore the modules, and unlock the final vault.</p>
+            
+            <button onclick="startMission(1)" class="cyber-btn text-xl px-12 py-4">
+                <i class="fas fa-power-off mr-2"></i> INITIALIZE SEQUENCE
+            </button>
+        </section>
+
+        <!-- Mission 1: Present Perfect Continuous -->
+        <section id="mission-1" class="mission-section">
+            <div class="cyber-panel p-8">
+                <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
+                    <span class="bg-sky-900 text-sky-400 px-3 py-1 text-sm font-bold cyber-font">MODULE 01</span>
+                    <h2 class="text-3xl font-bold text-white uppercase tracking-widest">Interrogation Log</h2>
+                </div>
+                
+                <p class="text-slate-400 text-lg mb-6"><i class="fas fa-info-circle text-sky-500 mr-2"></i> <strong>Objective:</strong> Reconstruct the timeline. Use the <span class="text-sky-400 font-bold">Present Perfect Continuous</span> (have/has been + verb-ing) to decode the suspects' actions.</p>
+                
+                <div class="space-y-6">
+                    <div class="bg-slate-800/50 p-4 border border-slate-700 rounded flex flex-col md:flex-row items-center gap-4">
+                        <i class="fas fa-user-ninja text-3xl text-slate-500"></i>
+                        <p class="text-lg flex-1">Suspect A <input type="text" id="m1-1" class="cyber-input w-48 mx-2" placeholder="(hide)"> in the safehouse for 3 days.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 border border-slate-700 rounded flex flex-col md:flex-row items-center gap-4">
+                        <i class="fas fa-user-secret text-3xl text-slate-500"></i>
+                        <p class="text-lg flex-1">The agents <input type="text" id="m1-2" class="cyber-input w-48 mx-2" placeholder="(track)"> the signal since this morning.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 border border-slate-700 rounded flex flex-col md:flex-row items-center gap-4">
+                        <i class="fas fa-laptop-code text-3xl text-slate-500"></i>
+                        <p class="text-lg flex-1">How long <input type="text" id="m1-3" class="cyber-input w-64 mx-2" placeholder="(you / hack)"> this firewall?</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 border border-slate-700 rounded flex flex-col md:flex-row items-center gap-4">
+                        <i class="fas fa-eye-slash text-3xl text-slate-500"></i>
+                        <p class="text-lg flex-1">The cameras are offline because they <input type="text" id="m1-4" class="cyber-input w-56 mx-2" placeholder="(not / record)"> anything lately.</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="checkMission1()" class="cyber-btn">Decrypt Module <i class="fas fa-unlock-alt ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission 2: Contrast Linkers -->
+        <section id="mission-2" class="mission-section">
+            <div class="cyber-panel p-8">
+                <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
+                    <span class="bg-purple-900 text-purple-400 px-3 py-1 text-sm font-bold cyber-font">MODULE 02</span>
+                    <h2 class="text-3xl font-bold text-white uppercase tracking-widest">Logic Firewall</h2>
+                </div>
+                
+                <p class="text-slate-400 text-lg mb-6"><i class="fas fa-exclamation-triangle text-purple-500 mr-2"></i> <strong>Objective:</strong> Bypass the logic gates using Contrast Linkers. Select a code from the bank and apply it to the terminal.</p>
+                
+                <!-- Word Bank -->
+                <div class="flex flex-wrap justify-center gap-4 mb-8 bg-slate-900 p-4 rounded border border-slate-700" id="linker-bank">
+                    <button class="linker-btn" data-word="Although" onclick="selectWord('linker', this)">Although</button>
+                    <button class="linker-btn" data-word="However," onclick="selectWord('linker', this)">However,</button>
+                    <button class="linker-btn" data-word="but" onclick="selectWord('linker', this)">but</button>
+                    <button class="linker-btn" data-word="In spite of" onclick="selectWord('linker', this)">In spite of</button>
+                    <button class="linker-btn" data-word="though." onclick="selectWord('linker', this)">though.</button>
+                </div>
+
+                <div class="space-y-6 text-lg font-medium text-slate-300">
+                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
+                        Terminal 1: <span class="drop-zone" id="l1" onclick="fillWord('linker', this)">_____</span> the high security, the spy entered the building.
+                    </p>
+                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
+                        Terminal 2: <span class="drop-zone" id="l2" onclick="fillWord('linker', this)">_____</span> he had the password, the system rejected his ID.
+                    </p>
+                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
+                        Terminal 3: The mission was dangerous, <span class="drop-zone" id="l3" onclick="fillWord('linker', this)">_____</span> the reward was huge.
+                    </p>
+                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
+                        Terminal 4: The laser grid is active. <span class="drop-zone" id="l4" onclick="fillWord('linker', this)">_____</span> there is a blind spot near the vent.
+                    </p>
+                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
+                        Terminal 5: We didn't find the main server. We downloaded some files, <span class="drop-zone" id="l5" onclick="fillWord('linker', this)">_____</span>
+                    </p>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="checkMission2()" class="cyber-btn" style="border-color: #a855f7; color: #a855f7;">Override Gates <i class="fas fa-network-wired ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission 3: TV Vocab & Future Plans -->
+        <section id="mission-3" class="mission-section">
+            <div class="cyber-panel p-8">
+                <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
+                    <span class="bg-orange-900 text-orange-400 px-3 py-1 text-sm font-bold cyber-font">MODULE 03</span>
+                    <h2 class="text-3xl font-bold text-white uppercase tracking-widest">Media Intercept</h2>
+                </div>
+                
+                <p class="text-slate-400 text-lg mb-8"><i class="fas fa-satellite-dish text-orange-500 mr-2"></i> <strong>Objective:</strong> We intercepted a TV broadcast detailing future enemy movements. Decode the vocabulary and predict their actions.</p>
+                
+                <!-- Part A: Vocab -->
+                <div class="mb-10">
+                    <h3 class="text-xl text-orange-400 mb-4 cyber-font">Phase A: Translate the Broadcast</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
+                            <span class="text-2xl" title="People competing">🏃‍♂️🏆🏃‍♀️</span>
+                            <input type="text" id="m3-v1" class="cyber-input w-40" placeholder="Word...">
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
+                            <span class="text-2xl" title="The person introducing guests">🎤🕴️</span>
+                            <input type="text" id="m3-v2" class="cyber-input w-40" placeholder="Word...">
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
+                            <span class="text-2xl" title="Evening hours with most viewers">🌆📺📈</span>
+                            <input type="text" id="m3-v3" class="cyber-input w-40" placeholder="2 Words...">
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
+                            <span class="text-2xl" title="A dramatic series with many episodes">🎭😭📺</span>
+                            <input type="text" id="m3-v4" class="cyber-input w-40" placeholder="2 Words...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part B: Future Plans -->
+                <div>
+                    <h3 class="text-xl text-orange-400 mb-4 cyber-font">Phase B: Enemy Predictions</h3>
+                    <p class="text-sm text-slate-500 mb-4">Choose the correct engine: <strong class="text-white">Will</strong> (Prediction/Spontaneous), <strong class="text-white">Going to</strong> (Intention/Evidence), or <strong class="text-white">Present Cont.</strong> (Arranged time).</p>
+                    
+                    <div class="space-y-4 text-lg">
+                        <div class="bg-slate-800/40 p-4 rounded border-l-4 border-orange-500">
+                            <p class="text-sm text-orange-400 uppercase font-bold mb-1">Intercept 1 (Prediction based on evidence)</p>
+                            <p>Look at the satellite map! The storm <input type="text" id="m3-f1" class="cyber-input w-40 mx-2" placeholder="(hit)"> the base.</p>
+                        </div>
+                        <div class="bg-slate-800/40 p-4 rounded border-l-4 border-orange-500">
+                            <p class="text-sm text-orange-400 uppercase font-bold mb-1">Intercept 2 (Fixed Arrangement)</p>
+                            <p>The VIP target <input type="text" id="m3-f2" class="cyber-input w-40 mx-2" placeholder="(arrive)"> at 08:00 AM tomorrow.</p>
+                        </div>
+                        <div class="bg-slate-800/40 p-4 rounded border-l-4 border-orange-500">
+                            <p class="text-sm text-orange-400 uppercase font-bold mb-1">Intercept 3 (Spontaneous Decision)</p>
+                            <p>Agent: "We need a distraction!" You: "I <input type="text" id="m3-f3" class="cyber-input w-40 mx-2" placeholder="(cut)"> the power!"</p>
+                        </div>
+                        <div class="bg-slate-800/40 p-4 rounded border-l-4 border-orange-500">
+                            <p class="text-sm text-orange-400 uppercase font-bold mb-1">Intercept 4 (Intention)</p>
+                            <p>They bought the explosives. They <input type="text" id="m3-f4" class="cyber-input w-48 mx-2" placeholder="(destroy)"> the bridge.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="checkMission3()" class="cyber-btn" style="border-color: #f97316; color: #f97316;">Process Signal <i class="fas fa-wave-square ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission 4: Compound Adjs & Comparatives -->
+        <section id="mission-4" class="mission-section">
+            <div class="cyber-panel p-8">
+                <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
+                    <span class="bg-green-900 text-green-400 px-3 py-1 text-sm font-bold cyber-font">MODULE 04</span>
+                    <h2 class="text-3xl font-bold text-white uppercase tracking-widest">The Final Cipher</h2>
+                </div>
+                
+                <p class="text-slate-400 text-lg mb-8"><i class="fas fa-key text-green-500 mr-2"></i> <strong>Objective:</strong> Generate the final passphrase by combining descriptors and analyzing threat levels.</p>
+                
+                <!-- Part A: Compound Adjs -->
+                <div class="mb-10">
+                    <h3 class="text-xl text-green-400 mb-4 cyber-font">Phase A: Profile the Targets</h3>
+                    <div class="flex flex-wrap justify-center gap-4 mb-6 bg-slate-900 p-4 rounded border border-slate-700" id="adj-bank">
+                        <button class="linker-btn" data-word="spell-binding" onclick="selectWord('adj', this)">spell-binding</button>
+                        <button class="linker-btn" data-word="well-known" onclick="selectWord('adj', this)">well-known</button>
+                        <button class="linker-btn" data-word="short-tempered" onclick="selectWord('adj', this)">short-tempered</button>
+                        <button class="linker-btn" data-word="thought-provoking" onclick="selectWord('adj', this)">thought-provoking</button>
+                        <button class="linker-btn" data-word="best-selling" onclick="selectWord('adj', this)">best-selling</button>
+                    </div>
+
+                    <div class="space-y-4 text-lg">
+                        <p class="bg-slate-800/40 p-4 border-l-4 border-green-500 rounded">
+                            Target 1 gets angry instantly. He is highly <span class="drop-zone" id="a1" onclick="fillWord('adj', this)">_____</span>.
+                        </p>
+                        <p class="bg-slate-800/40 p-4 border-l-4 border-green-500 rounded">
+                            The hypnotic device they used was absolutely <span class="drop-zone" id="a2" onclick="fillWord('adj', this)">_____</span>. I couldn't look away.
+                        </p>
+                        <p class="bg-slate-800/40 p-4 border-l-4 border-green-500 rounded">
+                            The mastermind is a <span class="drop-zone" id="a3" onclick="fillWord('adj', this)">_____</span> criminal, recognized globally.
+                        </p>
+                        <p class="bg-slate-800/40 p-4 border-l-4 border-green-500 rounded">
+                            They hid the codes inside a <span class="drop-zone" id="a4" onclick="fillWord('adj', this)">_____</span> book at the library.
+                        </p>
+                        <p class="bg-slate-800/40 p-4 border-l-4 border-green-500 rounded">
+                            The riddle left behind was very <span class="drop-zone" id="a5" onclick="fillWord('adj', this)">_____</span>. It made us think for hours.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Part B: Emphasizing Comparatives -->
+                <div>
+                    <h3 class="text-xl text-green-400 mb-4 cyber-font">Phase B: Threat Analysis</h3>
+                    <p class="text-sm text-slate-500 mb-4">Emphasize the comparatives. (much/a lot/far, a bit/a little, just as...as).</p>
+                    
+                    <div class="space-y-4 text-lg">
+                        <div class="flex items-center gap-4 bg-slate-800/40 p-3 rounded">
+                            <span class="text-red-500 font-bold uppercase text-sm w-24">Big Diff.</span>
+                            <p class="flex-1">The new laser is <input type="text" id="m4-c1" class="cyber-input w-48 mx-2" placeholder="(dangerous)"> than the old one.</p>
+                        </div>
+                        <div class="flex items-center gap-4 bg-slate-800/40 p-3 rounded">
+                            <span class="text-yellow-500 font-bold uppercase text-sm w-24">Small Diff.</span>
+                            <p class="flex-1">The code is <input type="text" id="m4-c2" class="cyber-input w-48 mx-2" placeholder="(long)"> than we expected.</p>
+                        </div>
+                        <div class="flex items-center gap-4 bg-slate-800/40 p-3 rounded">
+                            <span class="text-blue-500 font-bold uppercase text-sm w-24">Equal</span>
+                            <p class="flex-1">Agent X is <input type="text" id="m4-c3" class="cyber-input w-48 mx-2" placeholder="(fast)"> Agent Y.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="checkMission4()" class="cyber-btn" style="border-color: #22c55e; color: #22c55e;">Extract Core <i class="fas fa-download ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission 5: Vault / Exit Ticket -->
+        <section id="mission-5" class="mission-section">
+            <div class="text-center py-12">
+                <i class="fas fa-door-open text-8xl text-yellow-400 mb-6 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"></i>
+                <h2 class="text-5xl font-bold cyber-font text-white mb-4">SYSTEM RESTORED</h2>
+                <p class="text-xl text-slate-300 mb-10">Excellent work, Agents. The Da Vinci mainframe is secure.</p>
+                
+                <div class="max-w-2xl mx-auto cyber-panel p-8 text-left">
+                    <h3 class="text-2xl font-bold text-yellow-400 mb-4 border-b border-slate-700 pb-2"><i class="fas fa-clipboard-check mr-2"></i> Mission Debrief (Exit Ticket)</h3>
+                    <p class="text-slate-300 mb-6">To complete your training, log a final entry. Write a sentence about a TV show you will be watching this weekend. Use a <strong>Compound Adjective</strong> or an <strong>Emphasizing Comparative</strong>.</p>
+                    
+                    <textarea id="exit-ticket" class="w-full bg-slate-900 border border-slate-600 rounded p-4 text-white focus:border-yellow-400 outline-none resize-none mb-4 font-mono" rows="3" placeholder="> Input log..."></textarea>
+                    
+                    <p id="exit-warning" class="text-red-500 text-sm font-bold hidden mb-4"><i class="fas fa-exclamation-triangle"></i> Log entry required.</p>
+                    
+                    <button onclick="submitExitTicket()" id="btn-finish" class="cyber-btn w-full" style="border-color: #facc15; color: #facc15;">
+                        SUBMIT LOG & DISCONNECT
+                    </button>
+                </div>
+
+                <!-- Homework Display (Hidden until submit) -->
+                <div id="hw-display" class="hidden mt-10 p-8 border-t-2 border-dashed border-slate-700">
+                    <h3 class="text-3xl font-bold text-white mb-6">Next Directive: Study for the Test!</h3>
+                    <div class="inline-block text-left bg-slate-800/80 p-6 rounded-lg border border-slate-600 shadow-xl">
+                        <ul class="space-y-3 text-lg text-slate-300">
+                            <li><i class="fas fa-check-square text-sky-500 mr-2"></i> Lesson 3C - The Olympic Spirit</li>
+                            <li><i class="fas fa-check-square text-sky-500 mr-2"></i> Lesson 3D - Your city as your playground</li>
+                            <li><i class="fas fa-check-square text-sky-500 mr-2"></i> Lesson 4A - What's on</li>
+                            <li><i class="fas fa-check-square text-sky-500 mr-2"></i> Lesson 4C - Don't judge a book by its film</li>
+                        </ul>
+                    </div>
+                    <p class="mt-8 text-2xl font-bold text-sky-400 animate-pulse">Good luck, Investigators! 🕵️‍♂️</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- Sound Effects using Tone.js ---
+        let synth;
+        let isAudioReady = false;
+
+        async function initAudio() {
+            if(!isAudioReady) {
+                await Tone.start();
+                synth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: "sawtooth" }
+                }).toDestination();
+                synth.volume.value = -10;
+                isAudioReady = true;
+            }
+        }
+
+        function playSound(type) {
+            if(!isAudioReady) initAudio();
+            if(!synth) return;
+            
+            if(type === 'success') {
+                synth.triggerAttackRelease(["C5", "E5", "G5"], "8n");
+            } else if (type === 'error') {
+                synth.triggerAttackRelease(["C3", "D#3"], "8n");
+            } else if (type === 'unlock') {
+                const now = Tone.now();
+                synth.triggerAttackRelease("C4", "8n", now);
+                synth.triggerAttackRelease("E4", "8n", now + 0.1);
+                synth.triggerAttackRelease("G4", "8n", now + 0.2);
+                synth.triggerAttackRelease("C5", "4n", now + 0.3);
+            }
+        }
+
+        // Ambient Music logic (YouTube iframe)
+        let isMusicPlaying = false;
+        function toggleMusic() {
+            const btn = document.getElementById('play-music');
+            const container = document.getElementById('yt-player');
+            
+            if(!isMusicPlaying) {
+                // Insert iframe if not exists (Lofi Hip Hop radio)
+                if(container.innerHTML === "") {
+                    container.innerHTML = `<iframe width="0" height="0" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&loop=1&controls=0" frameborder="0" allow="autoplay" allowfullscreen></iframe>`;
+                }
+                btn.innerText = "BGM: ON";
+                btn.classList.replace('text-sky-400', 'text-green-400');
+                isMusicPlaying = true;
+            } else {
+                container.innerHTML = ""; // Kill iframe to stop audio
+                btn.innerText = "BGM: OFF";
+                btn.classList.replace('text-green-400', 'text-sky-400');
+                isMusicPlaying = false;
+            }
+        }
+
+        // --- Game Progression Logic ---
+        let currentMission = 0;
+        const totalMissions = 5;
+
+        function updateProgress() {
+            const pct = (currentMission / totalMissions) * 100;
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+            document.getElementById('progress-text').innerText = `${pct}%`;
+        }
+
+        function startMission(num) {
+            initAudio(); // Initialize audio context on first user click
+            playSound('unlock');
+            
+            document.querySelectorAll('.mission-section').forEach(sec => sec.classList.remove('active'));
+            setTimeout(() => {
+                document.getElementById(`mission-${num}`).classList.add('active');
+                currentMission = num;
+                updateProgress();
+            }, 500);
+        }
+
+        function overrideMission() {
+            if(currentMission < totalMissions) startMission(currentMission + 1);
+        }
+
+        // --- Validation Helper ---
+        function validateInput(id, correctAnswers) {
+            const input = document.getElementById(id);
+            if(!input) return false;
+            let val = input.value.trim().toLowerCase().replace(/\s+/g, ' ').replace(/[.,!]/g, '');
+            input.classList.remove('success', 'error');
+            
+            if (correctAnswers.includes(val)) {
+                input.classList.add('success');
+                return true;
+            } else {
+                input.classList.add('error');
+                input.value = correctAnswers[0]; // Reveal answer on fail to keep pace
+                return false;
+            }
+        }
+
+        // --- Mission 1 (Pres Perf Cont) ---
+        function checkMission1() {
+            let p1 = validateInput('m1-1', ['has been hiding', "'s been hiding"]);
+            let p2 = validateInput('m1-2', ['have been tracking', "'ve been tracking"]);
+            let p3 = validateInput('m1-3', ['have you been hacking']);
+            let p4 = validateInput('m1-4', ['have not been recording', "haven't been recording"]);
+            
+            if(p1 && p2 && p3 && p4) { playSound('success'); setTimeout(() => startMission(2), 1500); }
+            else { playSound('error'); }
+        }
+
+        // --- General Word Bank Logic (Missions 2 & 4) ---
+        let activeWord = { linker: null, adj: null };
+        let activeBtn = { linker: null, adj: null };
+
+        function selectWord(group, btn) {
+            const container = btn.parentElement;
+            container.querySelectorAll('.linker-btn').forEach(b => b.classList.remove('selected'));
+            if(activeBtn[group] === btn) { activeWord[group] = null; activeBtn[group] = null; return; }
+            
+            btn.classList.add('selected');
+            activeWord[group] = btn.getAttribute('data-word');
+            activeBtn[group] = btn;
+            initAudio(); playSound('success'); // little blip
+        }
+
+        function fillWord(group, zone) {
+            if (zone.innerText !== '_____' && !activeWord[group]) {
+                zone.innerText = '_____';
+                zone.classList.remove('filled', 'success', 'error');
+                return;
+            }
+            if (activeWord[group]) {
+                zone.innerText = activeWord[group];
+                zone.classList.remove('success', 'error');
+                zone.classList.add('filled');
+                playSound('success');
+            }
+        }
+
+        function validateZones(answersDict) {
+            let allCorrect = true;
+            for(let id in answersDict) {
+                const el = document.getElementById(id);
+                if(!el) continue;
+                if(el.innerText === answersDict[id]) {
+                    el.classList.add('success'); el.classList.remove('error');
+                } else {
+                    el.innerText = answersDict[id]; // Reveal
+                    el.classList.add('error'); el.classList.remove('success');
+                    allCorrect = false;
+                }
+            }
+            return allCorrect;
+        }
+
+        // --- Mission 2 (Linkers) ---
+        const linkerAns = { 'l1': 'In spite of', 'l2': 'Although', 'l3': 'but', 'l4': 'However,', 'l5': 'though.' };
+        function checkMission2() {
+            if(validateZones(linkerAns)) { playSound('success'); setTimeout(() => startMission(3), 1500); }
+            else { playSound('error'); }
+        }
+
+        // --- Mission 3 (Vocab & Future) ---
+        function checkMission3() {
+            // Vocab
+            let v1 = validateInput('m3-v1', ['contestants', 'competitors']);
+            let v2 = validateInput('m3-v2', ['host', 'presenter']);
+            let v3 = validateInput('m3-v3', ['prime time']);
+            let v4 = validateInput('m3-v4', ['soap opera']);
+            
+            // Future
+            let f1 = validateInput('m3-f1', ['is going to hit', "'s going to hit"]);
+            let f2 = validateInput('m3-f2', ['is arriving', "'s arriving", 'is going to arrive']);
+            let f3 = validateInput('m3-f3', ['will cut', "'ll cut"]);
+            let f4 = validateInput('m3-f4', ['are going to destroy', "'re going to destroy"]);
+
+            if(v1 && v2 && v3 && v4 && f1 && f2 && f3 && f4) { playSound('success'); setTimeout(() => startMission(4), 1500); }
+            else { playSound('error'); }
+        }
+
+        // --- Mission 4 (Adjs & Comparatives) ---
+        const adjAns = { 'a1': 'short-tempered', 'a2': 'spell-binding', 'a3': 'well-known', 'a4': 'best-selling', 'a5': 'thought-provoking' };
+        function checkMission4() {
+            let adjsCorrect = validateZones(adjAns);
+            
+            let c1 = validateInput('m4-c1', ['much more dangerous', 'a lot more dangerous', 'far more dangerous']);
+            let c2 = validateInput('m4-c2', ['a bit longer', 'a little longer']);
+            let c3 = validateInput('m4-c3', ['just as fast as']);
+
+            if(adjsCorrect && c1 && c2 && c3) { playSound('success'); setTimeout(() => startMission(5), 1500); }
+            else { playSound('error'); }
+        }
+
+        // --- Mission 5 (Exit) ---
+        function submitExitTicket() {
+            const input = document.getElementById('exit-ticket');
+            const warning = document.getElementById('exit-warning');
+            
+            if(input.value.trim().length > 10) {
+                warning.classList.add('hidden');
+                playSound('unlock');
+                document.getElementById('btn-finish').innerText = "LOG SAVED.";
+                document.getElementById('btn-finish').disabled = true;
+                
+                const hw = document.getElementById('hw-display');
+                hw.classList.remove('hidden');
+                setTimeout(() => hw.scrollIntoView({ behavior: 'smooth' }), 200);
+            } else {
+                playSound('error');
+                warning.classList.remove('hidden');
+                input.classList.add('border-red-500');
+                setTimeout(() => input.classList.remove('border-red-500'), 2000);
+            }
+        }
+    </script>
+</body>
+</html>
