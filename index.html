@@ -3,137 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operation: Da Vinci | Mega Review</title>
-    
+    <title>Operation: Da Vinci - Final Review</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tone.js for Sound Effects -->
+    <!-- Tone.js for Audio -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
-
-        :root {
-            --neon-green: #0ea5e9; /* Changed to a cyan/blue vibe for Da Vinci, despite 'green' var name */
-            --bg-dark: #020617;
-            --panel-bg: rgba(15, 23, 42, 0.8);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background-color: var(--bg-dark);
-            color: #e2e8f0;
+            background-color: #020617; /* Slate 950 */
+            color: #22c55e; /* Hacker Green */
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
             background-image: 
                 linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.9)),
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(14, 165, 233, 0.05) 2px, rgba(14, 165, 233, 0.05) 4px);
-            background-size: cover;
-            background-attachment: fixed;
-            margin: 0;
-            overflow-x: hidden;
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(34, 197, 94, 0.05) 2px, rgba(34, 197, 94, 0.05) 4px);
         }
 
         h1, h2, h3, .cyber-font {
-            font-family: 'Share Tech Mono', monospace;
+            font-family: 'Orbitron', sans-serif;
         }
 
         /* Glitch Effect */
-        .glitch {
+        .glitch-text {
             position: relative;
-            color: white;
-            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
-                         0.025em 0.04em 0 #fffc00;
-            animation: glitch 1s infinite;
+            display: inline-block;
         }
-        @keyframes glitch {
-            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
-            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
-            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
-            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
-            50% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00; }
-            99% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00; }
-            100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff, -0.04em -0.025em 0 #fffc00; }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #020617;
+        }
+        .glitch-text::before {
+            left: 2px; text-shadow: -1px 0 red;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px; text-shadow: -1px 0 blue;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(20px, 9999px, 86px, 0); }
+            20% { clip: rect(67px, 9999px, 14px, 0); }
+            40% { clip: rect(34px, 9999px, 55px, 0); }
+            60% { clip: rect(98px, 9999px, 23px, 0); }
+            80% { clip: rect(12px, 9999px, 78px, 0); }
+            100% { clip: rect(45px, 9999px, 90px, 0); }
         }
 
-        /* Cyber UI Elements */
-        .cyber-panel {
-            background: var(--panel-bg);
-            border: 1px solid #0ea5e9;
-            box-shadow: 0 0 15px rgba(14, 165, 233, 0.2), inset 0 0 20px rgba(14, 165, 233, 0.1);
-            backdrop-filter: blur(5px);
-            border-radius: 4px;
+        /* Cyber Buttons */
+        .cyber-btn {
+            background: transparent;
+            color: #22c55e;
+            border: 2px solid #22c55e;
+            padding: 10px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             position: relative;
+            transition: all 0.2s;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
         }
-        .cyber-panel::before, .cyber-panel::after {
-            content: ''; position: absolute; width: 10px; height: 10px; border: 2px solid #0ea5e9;
+        .cyber-btn:hover {
+            background: #22c55e;
+            color: #020617;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
         }
-        .cyber-panel::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-        .cyber-panel::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+        .cyber-btn:disabled {
+            border-color: #475569;
+            color: #475569;
+            box-shadow: none;
+            cursor: not-allowed;
+            background: transparent;
+        }
 
+        /* Cyber Inputs */
         .cyber-input {
             background: rgba(2, 6, 23, 0.8);
             border: 1px solid #334155;
-            color: #38bdf8;
-            font-family: 'Share Tech Mono', monospace;
-            padding: 0.5rem;
+            border-bottom: 2px solid #22c55e;
+            color: #fff;
+            padding: 5px 10px;
             outline: none;
             transition: all 0.3s;
             text-align: center;
         }
         .cyber-input:focus {
-            border-color: #0ea5e9;
-            box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+            background: rgba(34, 197, 94, 0.1);
+            border-color: #22c55e;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
         }
-        .cyber-input.success { border-color: #22c55e; color: #4ade80; box-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
-        .cyber-input.error { border-color: #ef4444; color: #f87171; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); animation: shake 0.4s; }
-
-        .cyber-btn {
-            background: transparent;
-            border: 1px solid #0ea5e9;
-            color: #0ea5e9;
-            font-family: 'Share Tech Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-        .cyber-btn:hover {
-            background: #0ea5e9;
-            color: #020617;
-            box-shadow: 0 0 20px #0ea5e9;
-        }
-        .cyber-btn:disabled {
-            border-color: #475569; color: #475569; cursor: not-allowed; background: transparent; box-shadow: none;
-        }
-
-        /* Mission States */
-        .mission-section {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease-out;
-        }
-        .mission-section.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Interactive Elements */
-        .linker-btn {
-            background: rgba(15, 23, 42, 0.9); border: 1px solid #475569; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.2s; color: #94a3b8;
-        }
-        .linker-btn:hover { border-color: #0ea5e9; color: #0ea5e9; }
-        .linker-btn.selected { background: #0ea5e9; color: #020617; font-weight: bold; box-shadow: 0 0 15px #0ea5e9;}
-
-        .drop-zone {
-            display: inline-block; min-width: 120px; border-bottom: 2px solid #475569; padding: 0 5px; color: #38bdf8; text-align: center; cursor: pointer; transition: all 0.3s;
-        }
-        .drop-zone.filled { border-bottom-color: #0ea5e9; }
-        .drop-zone.success { border-bottom-color: #22c55e; color: #4ade80; }
-        .drop-zone.error { border-bottom-color: #ef4444; color: #f87171; animation: shake 0.4s; }
+        .input-correct { border-color: #3b82f6 !important; color: #60a5fa !important; background: rgba(59, 130, 246, 0.1); }
+        .input-error { border-color: #ef4444 !important; color: #f87171 !important; animation: shake 0.4s; }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -142,227 +112,299 @@
             75% { transform: translateX(-5px); }
         }
 
-        /* Typewriter effect */
-        .typewriter {
-            overflow: hidden;
-            border-right: .15em solid #0ea5e9;
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: .15em;
-            animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
+        /* Linker & Adj Buttons (Click & Fill) */
+        .linker-btn {
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #0ea5e9; } }
+        .linker-btn:hover { border-color: #22c55e; color: #22c55e; }
+        .linker-btn.selected { background: #22c55e; color: #020617; border-color: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,0.5); }
 
-        /* Background Music Player */
-        #music-player { position: fixed; bottom: 20px; right: 20px; z-index: 1000; opacity: 0.5; transition: opacity 0.3s; }
-        #music-player:hover { opacity: 1; }
+        .drop-zone {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 2px dashed #475569;
+            color: #3b82f6;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 5px;
+            transition: all 0.2s;
+        }
+        .drop-zone:hover { border-bottom-color: #22c55e; }
+        .drop-zone.filled { border-bottom-style: solid; border-bottom-color: #22c55e; color: #22c55e; }
+        .drop-zone.error { border-bottom-color: #ef4444; color: #ef4444; animation: shake 0.4s; }
+
+        /* Sections */
+        .mission-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .mission-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: #0f172a;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #22c55e;
+            width: 0%;
+            transition: width 1s ease-in-out;
+            box-shadow: 0 0 10px #22c55e;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col p-4 md:p-8">
 
-    <!-- Ambient Audio (YouTube embedded invisibly for background lofi) -->
-    <div id="music-player" class="bg-slate-900 border border-slate-700 p-2 rounded flex items-center gap-3">
-        <i class="fas fa-music text-slate-400"></i>
-        <button id="play-music" onclick="toggleMusic()" class="text-xs text-sky-400 hover:text-sky-300 uppercase tracking-widest cyber-font">BGM: OFF</button>
-        <div id="yt-player" class="hidden"></div>
-    </div>
-
-    <!-- Header / Progress Bar -->
-    <header class="max-w-5xl mx-auto w-full mb-8 flex flex-col md:flex-row justify-between items-center cyber-panel p-4">
-        <div class="flex items-center gap-4 mb-4 md:mb-0">
-            <i class="fas fa-fingerprint text-4xl text-sky-500"></i>
-            <div>
-                <h1 class="text-2xl font-bold tracking-widest text-white uppercase">Da Vinci <span class="text-sky-500">Agency</span></h1>
-                <p class="text-xs text-sky-400 uppercase tracking-widest cyber-font">Agent Training Protocol</p>
-            </div>
+    <!-- Top HUD -->
+    <header class="flex justify-between items-start mb-8 border-b border-green-900/50 pb-4">
+        <div>
+            <h1 class="text-3xl md:text-4xl font-black cyber-font text-white mb-1"><span class="text-green-500">OP:</span> DA VINCI</h1>
+            <p class="text-xs tracking-widest opacity-70">AGENT TERMINAL v2.4 // ENCRYPTED CONNECTION</p>
         </div>
-        <div class="flex-1 max-w-md mx-4 w-full">
-            <div class="flex justify-between text-xs text-slate-400 cyber-font mb-1">
-                <span>SYSTEM BREACH</span>
-                <span id="progress-text">0%</span>
-            </div>
-            <div class="h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
-                <div id="progress-bar" class="h-full bg-sky-500 transition-all duration-500" style="width: 0%;"></div>
-            </div>
+        <div class="text-right">
+            <button onclick="toggleMusic()" id="music-btn" class="text-green-500 hover:text-white transition-colors text-xl" title="Toggle BGM">
+                <i class="fas fa-volume-mute" id="music-icon"></i>
+            </button>
+            <div class="mt-2 text-xs opacity-50">SYSTEM STATUS: <span class="text-green-400 animate-pulse">ONLINE</span></div>
         </div>
-        <button onclick="overrideMission()" class="text-xs text-slate-600 hover:text-slate-400 cyber-font underline mt-4 md:mt-0" title="Teacher Bypass">Bypass</button>
     </header>
 
-    <main class="max-w-5xl mx-auto w-full flex-1">
+    <main class="flex-1 max-w-4xl mx-auto w-full relative">
         
-        <!-- Intro Screen -->
-        <section id="intro" class="mission-section active text-center flex flex-col items-center justify-center min-h-[60vh]">
-            <i class="fas fa-user-secret text-8xl text-slate-700 mb-6"></i>
-            <h2 class="text-5xl md:text-7xl font-bold cyber-font text-white mb-4 glitch">OPERATION: OVERRIDE</h2>
-            <p class="text-xl text-slate-400 mb-8 max-w-2xl leading-relaxed">Agents, the central grammar mainframe has been corrupted. You have 50 minutes to solve the linguistic puzzles, restore the modules, and unlock the final vault.</p>
-            
-            <button onclick="startMission(1)" class="cyber-btn text-xl px-12 py-4">
-                <i class="fas fa-power-off mr-2"></i> INITIALIZE SEQUENCE
+        <!-- Progress HUD -->
+        <div class="mb-8">
+            <div class="flex justify-between text-xs mb-2">
+                <span>MISSION PROGRESS</span>
+                <span id="progress-text">0%</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+
+        <!-- ================= MISSION 0: BOOT ================= -->
+        <section id="mission-0" class="mission-section active text-center py-20">
+            <i class="fas fa-user-secret text-8xl mb-8 opacity-80 glitch-text" data-text="🕵️"></i>
+            <h2 class="text-4xl cyber-font text-white mb-6 glitch-text" data-text="INCOMING TRANSMISSION">INCOMING TRANSMISSION</h2>
+            <p class="mb-10 text-lg opacity-80 max-w-2xl mx-auto leading-relaxed text-slate-300">
+                Agent, we need your grammar and vocabulary skills to crack the mainframe of an international syndicate. 
+                Complete the linguistic challenges to bypass their firewalls. The clock is ticking.
+            </p>
+            <button onclick="startMission(1)" class="cyber-btn text-xl px-10 py-4">
+                <i class="fas fa-terminal mr-2"></i> INITIALIZE SEQUENCE
             </button>
         </section>
 
-        <!-- Mission 1: Present Perfect Continuous -->
+        <!-- ================= MISSION 1: PRES PERF CONT ================= -->
         <section id="mission-1" class="mission-section">
-            <div class="cyber-panel p-8">
-                <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
-                    <span class="bg-sky-900 text-sky-400 px-3 py-1 text-sm font-bold cyber-font">MODULE 01</span>
-                    <h2 class="text-3xl font-bold text-white uppercase tracking-widest">Interrogation Log</h2>
-                </div>
-                
-                <p class="text-slate-400 text-lg mb-6"><i class="fas fa-info-circle text-sky-500 mr-2"></i> <strong>Objective:</strong> Reconstruct the timeline. Use the <span class="text-sky-400 font-bold">Present Perfect Continuous</span> (have/has been + verb-ing) to decode the suspects' actions.</p>
-                
-                <div class="space-y-6">
-                    <div class="bg-slate-800/50 p-4 border border-slate-700 rounded flex flex-col md:flex-row items-center gap-4">
-                        <i class="fas fa-user-ninja text-3xl text-slate-500"></i>
-                        <p class="text-lg flex-1">Suspect A <input type="text" id="m1-1" class="cyber-input w-48 mx-2" placeholder="(hide)"> in the safehouse for 3 days.</p>
-                    </div>
-                    <div class="bg-slate-800/50 p-4 border border-slate-700 rounded flex flex-col md:flex-row items-center gap-4">
-                        <i class="fas fa-user-secret text-3xl text-slate-500"></i>
-                        <p class="text-lg flex-1">The agents <input type="text" id="m1-2" class="cyber-input w-48 mx-2" placeholder="(track)"> the signal since this morning.</p>
-                    </div>
-                    <div class="bg-slate-800/50 p-4 border border-slate-700 rounded flex flex-col md:flex-row items-center gap-4">
-                        <i class="fas fa-laptop-code text-3xl text-slate-500"></i>
-                        <p class="text-lg flex-1">How long <input type="text" id="m1-3" class="cyber-input w-64 mx-2" placeholder="(you / hack)"> this firewall?</p>
-                    </div>
-                    <div class="bg-slate-800/50 p-4 border border-slate-700 rounded flex flex-col md:flex-row items-center gap-4">
-                        <i class="fas fa-eye-slash text-3xl text-slate-500"></i>
-                        <p class="text-lg flex-1">The cameras are offline because they <input type="text" id="m1-4" class="cyber-input w-56 mx-2" placeholder="(not / record)"> anything lately.</p>
+            <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
+                    <span class="text-3xl text-blue-500"><i class="fas fa-fingerprint"></i></span>
+                    <div>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 1: The Interrogation</h2>
+                        <p class="text-xs tracking-widest opacity-70">TARGET: PRESENT PERFECT CONTINUOUS</p>
                     </div>
                 </div>
 
-                <div class="mt-8 flex justify-end">
-                    <button onclick="checkMission1()" class="cyber-btn">Decrypt Module <i class="fas fa-unlock-alt ml-2"></i></button>
+                <p class="mb-6 opacity-90 text-sm md:text-base text-slate-300">
+                    The suspect has been captured, but his alibis are incomplete. 
+                    Reconstruct his timeline using <span class="text-white font-bold">have/has been + verb(ing)</span>.
+                </p>
+
+                <div class="space-y-6 text-lg">
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <span class="text-slate-500 font-bold w-6">01</span>
+                        <p class="flex-1">"I swear, detective! I <input type="text" id="m1-1" class="cyber-input w-48" placeholder="(work)"> at the warehouse all night!"</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <span class="text-slate-500 font-bold w-6">02</span>
+                        <p class="flex-1">"My partner is exhausted because she <input type="text" id="m1-2" class="cyber-input w-48" placeholder="(drive)"> the getaway car for 10 hours."</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <span class="text-slate-500 font-bold w-6">03</span>
+                        <p class="flex-1">"How long <input type="text" id="m1-3" class="cyber-input w-64" placeholder="(you / plan)"> this heist?"</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <span class="text-slate-500 font-bold w-6">04</span>
+                        <p class="flex-1">"They <input type="text" id="m1-4" class="cyber-input w-56" placeholder="(not / communicate)"> recently. The radios are dead."</p>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex justify-between items-center">
+                    <button onclick="overrideMission(2)" class="text-xs text-slate-600 hover:text-slate-400 underline">OVERRIDE</button>
+                    <button onclick="checkMission1()" class="cyber-btn"><i class="fas fa-unlock-alt mr-2"></i> DECRYPT</button>
                 </div>
             </div>
         </section>
 
-        <!-- Mission 2: Contrast Linkers -->
+        <!-- ================= MISSION 2: LINKERS ================= -->
         <section id="mission-2" class="mission-section">
-            <div class="cyber-panel p-8">
-                <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
-                    <span class="bg-purple-900 text-purple-400 px-3 py-1 text-sm font-bold cyber-font">MODULE 02</span>
-                    <h2 class="text-3xl font-bold text-white uppercase tracking-widest">Logic Firewall</h2>
+            <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
+                    <span class="text-3xl text-purple-500"><i class="fas fa-network-wired"></i></span>
+                    <div>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 2: System Bypass</h2>
+                        <p class="text-xs tracking-widest opacity-70">TARGET: CONTRAST LINKERS</p>
+                    </div>
                 </div>
-                
-                <p class="text-slate-400 text-lg mb-6"><i class="fas fa-exclamation-triangle text-purple-500 mr-2"></i> <strong>Objective:</strong> Bypass the logic gates using Contrast Linkers. Select a code from the bank and apply it to the terminal.</p>
-                
+
+                <p class="mb-6 opacity-90 text-sm md:text-base text-slate-300">
+                    The security protocols contradict each other. Connect the logical paradoxes using the correct linkers. 
+                    <br><span class="text-xs text-green-400">(Click a word, then click a blank line)</span>
+                </p>
+
                 <!-- Word Bank -->
-                <div class="flex flex-wrap justify-center gap-4 mb-8 bg-slate-900 p-4 rounded border border-slate-700" id="linker-bank">
-                    <button class="linker-btn" data-word="Although" onclick="selectWord('linker', this)">Although</button>
-                    <button class="linker-btn" data-word="However," onclick="selectWord('linker', this)">However,</button>
-                    <button class="linker-btn" data-word="but" onclick="selectWord('linker', this)">but</button>
-                    <button class="linker-btn" data-word="In spite of" onclick="selectWord('linker', this)">In spite of</button>
-                    <button class="linker-btn" data-word="though." onclick="selectWord('linker', this)">though.</button>
+                <div class="flex flex-wrap gap-3 mb-8 bg-slate-800 p-4 rounded border border-slate-700" id="linker-bank">
+                    <button class="linker-btn" data-word="Although" onclick="selectWord('link', this)">Although</button>
+                    <button class="linker-btn" data-word="However," onclick="selectWord('link', this)">However,</button>
+                    <button class="linker-btn" data-word="but" onclick="selectWord('link', this)">but</button>
+                    <button class="linker-btn" data-word="In spite of" onclick="selectWord('link', this)">In spite of</button>
+                    <button class="linker-btn" data-word="though." onclick="selectWord('link', this)">though.</button>
                 </div>
 
-                <div class="space-y-6 text-lg font-medium text-slate-300">
-                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
-                        Terminal 1: <span class="drop-zone" id="l1" onclick="fillWord('linker', this)">_____</span> the high security, the spy entered the building.
+                <div class="space-y-5 text-lg">
+                    <p class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                        <span class="text-slate-500 font-bold mr-2">A)</span> 
+                        <span class="drop-zone" id="l1" onclick="fillWord('link', this)">_____</span> the high security, the agent infiltrated the building.
                     </p>
-                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
-                        Terminal 2: <span class="drop-zone" id="l2" onclick="fillWord('linker', this)">_____</span> he had the password, the system rejected his ID.
+                    <p class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                        <span class="text-slate-500 font-bold mr-2">B)</span> 
+                        He tried to guess the password. <span class="drop-zone" id="l2" onclick="fillWord('link', this)">_____</span> he was locked out.
                     </p>
-                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
-                        Terminal 3: The mission was dangerous, <span class="drop-zone" id="l3" onclick="fillWord('linker', this)">_____</span> the reward was huge.
+                    <p class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                        <span class="text-slate-500 font-bold mr-2">C)</span> 
+                        <span class="drop-zone" id="l3" onclick="fillWord('link', this)">_____</span> the mission was dangerous, she accepted it immediately.
                     </p>
-                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
-                        Terminal 4: The laser grid is active. <span class="drop-zone" id="l4" onclick="fillWord('linker', this)">_____</span> there is a blind spot near the vent.
+                    <p class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                        <span class="text-slate-500 font-bold mr-2">D)</span> 
+                        The codes were correct, the system crashed <span class="drop-zone" id="l4" onclick="fillWord('link', this)">_____</span>
                     </p>
-                    <p class="bg-slate-800/40 p-4 border-l-4 border-purple-500 rounded">
-                        Terminal 5: We didn't find the main server. We downloaded some files, <span class="drop-zone" id="l5" onclick="fillWord('linker', this)">_____</span>
+                    <p class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                        <span class="text-slate-500 font-bold mr-2">E)</span> 
+                        We had the map, <span class="drop-zone" id="l5" onclick="fillWord('link', this)">_____</span> we still got lost in the facility.
                     </p>
                 </div>
 
-                <div class="mt-8 flex justify-end">
-                    <button onclick="checkMission2()" class="cyber-btn" style="border-color: #a855f7; color: #a855f7;">Override Gates <i class="fas fa-network-wired ml-2"></i></button>
+                <div class="mt-10 flex justify-between items-center">
+                    <button onclick="overrideMission(3)" class="text-xs text-slate-600 hover:text-slate-400 underline">OVERRIDE</button>
+                    <button onclick="checkMission2()" class="cyber-btn"><i class="fas fa-plug mr-2"></i> CONNECT</button>
                 </div>
             </div>
         </section>
 
-        <!-- Mission 3: TV Vocab & Future Plans -->
+        <!-- ================= MISSION 3: VOCAB & FUTURE ================= -->
         <section id="mission-3" class="mission-section">
-            <div class="cyber-panel p-8">
-                <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
-                    <span class="bg-orange-900 text-orange-400 px-3 py-1 text-sm font-bold cyber-font">MODULE 03</span>
-                    <h2 class="text-3xl font-bold text-white uppercase tracking-widest">Media Intercept</h2>
+            <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
+                    <span class="text-3xl text-yellow-500"><i class="fas fa-satellite-dish"></i></span>
+                    <div>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 3: Media Intercept</h2>
+                        <p class="text-xs tracking-widest opacity-70">TARGET: TV VOCABULARY & FUTURE PLANS</p>
+                    </div>
                 </div>
-                
-                <p class="text-slate-400 text-lg mb-8"><i class="fas fa-satellite-dish text-orange-500 mr-2"></i> <strong>Objective:</strong> We intercepted a TV broadcast detailing future enemy movements. Decode the vocabulary and predict their actions.</p>
-                
+
                 <!-- Part A: Vocab -->
                 <div class="mb-10">
-                    <h3 class="text-xl text-orange-400 mb-4 cyber-font">Phase A: Translate the Broadcast</h3>
+                    <h3 class="text-xl text-yellow-400 mb-4 cyber-font">Phase A: Translate the Broadcast</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
-                            <span class="text-2xl" title="People competing">🏃‍♂️🏆🏃‍♀️</span>
+                            <span class="text-2xl" title="People who compete">🏃‍♂️🏆</span>
                             <input type="text" id="m3-v1" class="cyber-input w-40" placeholder="Word...">
                         </div>
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
-                            <span class="text-2xl" title="The person introducing guests">🎤🕴️</span>
+                            <span class="text-2xl" title="Person who introduces guests">🎤🤵‍♂️</span>
                             <input type="text" id="m3-v2" class="cyber-input w-40" placeholder="Word...">
                         </div>
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
-                            <span class="text-2xl" title="Evening hours with most viewers">🌆📺📈</span>
+                            <span class="text-2xl" title="The evening hours (8pm - 11pm)">🌙📺</span>
                             <input type="text" id="m3-v3" class="cyber-input w-40" placeholder="2 Words...">
                         </div>
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
                             <span class="text-2xl" title="A dramatic series with many episodes">🎭😭📺</span>
                             <input type="text" id="m3-v4" class="cyber-input w-40" placeholder="2 Words...">
                         </div>
+                        <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
+                            <span class="text-2xl" title="A show about real life, animals or nature">🌍🎥</span>
+                            <input type="text" id="m3-v5" class="cyber-input w-40" placeholder="Word...">
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
+                            <span class="text-2xl" title="A set of episodes of a TV show">🗓️📺</span>
+                            <input type="text" id="m3-v6" class="cyber-input w-40" placeholder="Word...">
+                        </div>
                     </div>
                 </div>
 
                 <!-- Part B: Future Plans -->
                 <div>
-                    <h3 class="text-xl text-orange-400 mb-4 cyber-font">Phase B: Enemy Predictions</h3>
-                    <p class="text-sm text-slate-500 mb-4">Choose the correct engine: <strong class="text-white">Will</strong> (Prediction/Spontaneous), <strong class="text-white">Going to</strong> (Intention/Evidence), or <strong class="text-white">Present Cont.</strong> (Arranged time).</p>
+                    <h3 class="text-xl text-yellow-400 mb-4 cyber-font">Phase B: Predict their Moves</h3>
+                    <p class="text-xs mb-4 text-slate-400">Use <span class="text-white">Will</span> (decisions/dreams), <span class="text-white">Going To</span> (intentions), or <span class="text-white">Pres. Cont.</span> (arrangements/diary).</p>
                     
                     <div class="space-y-4 text-lg">
-                        <div class="bg-slate-800/40 p-4 rounded border-l-4 border-orange-500">
-                            <p class="text-sm text-orange-400 uppercase font-bold mb-1">Intercept 1 (Prediction based on evidence)</p>
-                            <p>Look at the satellite map! The storm <input type="text" id="m3-f1" class="cyber-input w-40 mx-2" placeholder="(hit)"> the base.</p>
+                        <div class="bg-slate-800/40 p-4 border-l-4 border-yellow-500 rounded">
+                            <p class="text-xs text-yellow-500 mb-1">INTENTION / PLAN</p>
+                            The hurricane <input type="text" id="m3-f1" class="cyber-input w-40 mx-2" placeholder="(hit)"> the coast soon. We tracked its path.
                         </div>
-                        <div class="bg-slate-800/40 p-4 rounded border-l-4 border-orange-500">
-                            <p class="text-sm text-orange-400 uppercase font-bold mb-1">Intercept 2 (Fixed Arrangement)</p>
-                            <p>The VIP target <input type="text" id="m3-f2" class="cyber-input w-40 mx-2" placeholder="(arrive)"> at 08:00 AM tomorrow.</p>
+                        <div class="bg-slate-800/40 p-4 border-l-4 border-yellow-500 rounded">
+                            <p class="text-xs text-yellow-500 mb-1">ARRANGEMENT (DATE/TIME SET)</p>
+                            The backup team <input type="text" id="m3-f2" class="cyber-input w-40 mx-2" placeholder="(arrive)"> at 06:00 AM tomorrow.
                         </div>
-                        <div class="bg-slate-800/40 p-4 rounded border-l-4 border-orange-500">
-                            <p class="text-sm text-orange-400 uppercase font-bold mb-1">Intercept 3 (Spontaneous Decision)</p>
-                            <p>Agent: "We need a distraction!" You: "I <input type="text" id="m3-f3" class="cyber-input w-40 mx-2" placeholder="(cut)"> the power!"</p>
+                        <div class="bg-slate-800/40 p-4 border-l-4 border-yellow-500 rounded">
+                            <p class="text-xs text-yellow-500 mb-1">SPONTANEOUS DECISION</p>
+                            "The alarm is ringing!" - "Don't worry, I <input type="text" id="m3-f3" class="cyber-input w-32 mx-2" placeholder="(cut)"> the red wire."
                         </div>
-                        <div class="bg-slate-800/40 p-4 rounded border-l-4 border-orange-500">
-                            <p class="text-sm text-orange-400 uppercase font-bold mb-1">Intercept 4 (Intention)</p>
-                            <p>They bought the explosives. They <input type="text" id="m3-f4" class="cyber-input w-48 mx-2" placeholder="(destroy)"> the bridge.</p>
+                        <div class="bg-slate-800/40 p-4 border-l-4 border-yellow-500 rounded">
+                            <p class="text-xs text-yellow-500 mb-1">INTENTION</p>
+                            They packed explosives. They <input type="text" id="m3-f4" class="cyber-input w-56 mx-2" placeholder="(destroy)"> the server room.
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-8 flex justify-end">
-                    <button onclick="checkMission3()" class="cyber-btn" style="border-color: #f97316; color: #f97316;">Process Signal <i class="fas fa-wave-square ml-2"></i></button>
+                <div class="mt-10 flex justify-between items-center">
+                    <button onclick="overrideMission(4)" class="text-xs text-slate-600 hover:text-slate-400 underline">OVERRIDE</button>
+                    <button onclick="checkMission3()" class="cyber-btn"><i class="fas fa-satellite mr-2"></i> INTERCEPT</button>
                 </div>
             </div>
         </section>
 
-        <!-- Mission 4: Compound Adjs & Comparatives -->
+        <!-- ================= MISSION 4: ADJS & COMPARATIVES ================= -->
         <section id="mission-4" class="mission-section">
-            <div class="cyber-panel p-8">
-                <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
-                    <span class="bg-green-900 text-green-400 px-3 py-1 text-sm font-bold cyber-font">MODULE 04</span>
-                    <h2 class="text-3xl font-bold text-white uppercase tracking-widest">The Final Cipher</h2>
+            <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
+                    <span class="text-3xl text-green-500"><i class="fas fa-biohazard"></i></span>
+                    <div>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 4: The Final Cipher</h2>
+                        <p class="text-xs tracking-widest opacity-70">TARGET: COMPOUND ADJS & EMPHASIS</p>
+                    </div>
                 </div>
-                
-                <p class="text-slate-400 text-lg mb-8"><i class="fas fa-key text-green-500 mr-2"></i> <strong>Objective:</strong> Generate the final passphrase by combining descriptors and analyzing threat levels.</p>
-                
+
                 <!-- Part A: Compound Adjs -->
                 <div class="mb-10">
                     <h3 class="text-xl text-green-400 mb-4 cyber-font">Phase A: Profile the Targets</h3>
                     <div class="flex flex-wrap justify-center gap-4 mb-6 bg-slate-900 p-4 rounded border border-slate-700" id="adj-bank">
-                        <button class="linker-btn" data-word="spell-binding" onclick="selectWord('adj', this)">spell-binding</button>
-                        <button class="linker-btn" data-word="well-known" onclick="selectWord('adj', this)">well-known</button>
-                        <button class="linker-btn" data-word="short-tempered" onclick="selectWord('adj', this)">short-tempered</button>
-                        <button class="linker-btn" data-word="thought-provoking" onclick="selectWord('adj', this)">thought-provoking</button>
                         <button class="linker-btn" data-word="best-selling" onclick="selectWord('adj', this)">best-selling</button>
+                        <button class="linker-btn" data-word="well-known" onclick="selectWord('adj', this)">well-known</button>
+                        <button class="linker-btn" data-word="spell-binding" onclick="selectWord('adj', this)">spell-binding</button>
+                        <button class="linker-btn" data-word="thought-provoking" onclick="selectWord('adj', this)">thought-provoking</button>
+                        <button class="linker-btn" data-word="short-tempered" onclick="selectWord('adj', this)">short-tempered</button>
+                        <button class="linker-btn" data-word="good-mannered" onclick="selectWord('adj', this)">good-mannered</button>
                     </div>
 
                     <div class="space-y-4 text-lg">
@@ -381,132 +423,148 @@
                         <p class="bg-slate-800/40 p-4 border-l-4 border-green-500 rounded">
                             The riddle left behind was very <span class="drop-zone" id="a5" onclick="fillWord('adj', this)">_____</span>. It made us think for hours.
                         </p>
+                        <p class="bg-slate-800/40 p-4 border-l-4 border-green-500 rounded">
+                            The informant was extremely polite and respectful. He was incredibly <span class="drop-zone" id="a6" onclick="fillWord('adj', this)">_____</span>.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Part B: Emphasizing Comparatives -->
                 <div>
-                    <h3 class="text-xl text-green-400 mb-4 cyber-font">Phase B: Threat Analysis</h3>
-                    <p class="text-sm text-slate-500 mb-4">Emphasize the comparatives. (much/a lot/far, a bit/a little, just as...as).</p>
+                    <h3 class="text-xl text-green-400 mb-4 cyber-font">Phase B: Calculate Differences</h3>
                     
                     <div class="space-y-4 text-lg">
-                        <div class="flex items-center gap-4 bg-slate-800/40 p-3 rounded">
-                            <span class="text-red-500 font-bold uppercase text-sm w-24">Big Diff.</span>
-                            <p class="flex-1">The new laser is <input type="text" id="m4-c1" class="cyber-input w-48 mx-2" placeholder="(dangerous)"> than the old one.</p>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-angle-double-up text-red-500" title="Big Difference"></i>
+                            <p class="flex-1">This encryption is <input type="text" id="m4-c1" class="cyber-input w-56" placeholder="(much / difficult)"> than the last one.</p>
                         </div>
-                        <div class="flex items-center gap-4 bg-slate-800/40 p-3 rounded">
-                            <span class="text-yellow-500 font-bold uppercase text-sm w-24">Small Diff.</span>
-                            <p class="flex-1">The code is <input type="text" id="m4-c2" class="cyber-input w-48 mx-2" placeholder="(long)"> than we expected.</p>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-angle-double-up text-red-500" title="Big Difference"></i>
+                            <p class="flex-1">Our new supercomputer is <input type="text" id="m4-c2" class="cyber-input w-48" placeholder="(far / fast)"> than theirs.</p>
                         </div>
-                        <div class="flex items-center gap-4 bg-slate-800/40 p-3 rounded">
-                            <span class="text-blue-500 font-bold uppercase text-sm w-24">Equal</span>
-                            <p class="flex-1">Agent X is <input type="text" id="m4-c3" class="cyber-input w-48 mx-2" placeholder="(fast)"> Agent Y.</p>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-angle-up text-yellow-500" title="Small Difference"></i>
+                            <p class="flex-1">We need to be <input type="text" id="m4-c3" class="cyber-input w-56" placeholder="(a bit / careful)"> in this area.</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-equals text-blue-500" title="No Difference"></i>
+                            <p class="flex-1">Agent X is <input type="text" id="m4-c4" class="cyber-input w-48" placeholder="(just as / strong)"> Agent Y.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-8 flex justify-end">
-                    <button onclick="checkMission4()" class="cyber-btn" style="border-color: #22c55e; color: #22c55e;">Extract Core <i class="fas fa-download ml-2"></i></button>
+                <div class="mt-10 text-center">
+                    <button onclick="checkMission4()" class="cyber-btn text-xl px-12 py-4"><i class="fas fa-hackerrank mr-2"></i> EXECUTE FINAL HACK</button>
                 </div>
             </div>
         </section>
 
-        <!-- Mission 5: Vault / Exit Ticket -->
-        <section id="mission-5" class="mission-section">
-            <div class="text-center py-12">
-                <i class="fas fa-door-open text-8xl text-yellow-400 mb-6 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"></i>
-                <h2 class="text-5xl font-bold cyber-font text-white mb-4">SYSTEM RESTORED</h2>
-                <p class="text-xl text-slate-300 mb-10">Excellent work, Agents. The Da Vinci mainframe is secure.</p>
-                
-                <div class="max-w-2xl mx-auto cyber-panel p-8 text-left">
-                    <h3 class="text-2xl font-bold text-yellow-400 mb-4 border-b border-slate-700 pb-2"><i class="fas fa-clipboard-check mr-2"></i> Mission Debrief (Exit Ticket)</h3>
-                    <p class="text-slate-300 mb-6">To complete your training, log a final entry. Write a sentence about a TV show you will be watching this weekend. Use a <strong>Compound Adjective</strong> or an <strong>Emphasizing Comparative</strong>.</p>
-                    
-                    <textarea id="exit-ticket" class="w-full bg-slate-900 border border-slate-600 rounded p-4 text-white focus:border-yellow-400 outline-none resize-none mb-4 font-mono" rows="3" placeholder="> Input log..."></textarea>
-                    
-                    <p id="exit-warning" class="text-red-500 text-sm font-bold hidden mb-4"><i class="fas fa-exclamation-triangle"></i> Log entry required.</p>
-                    
-                    <button onclick="submitExitTicket()" id="btn-finish" class="cyber-btn w-full" style="border-color: #facc15; color: #facc15;">
-                        SUBMIT LOG & DISCONNECT
-                    </button>
-                </div>
-
-                <!-- Homework Display (Hidden until submit) -->
-                <div id="hw-display" class="hidden mt-10 p-8 border-t-2 border-dashed border-slate-700">
-                    <h3 class="text-3xl font-bold text-white mb-6">Next Directive: Study for the Test!</h3>
-                    <div class="inline-block text-left bg-slate-800/80 p-6 rounded-lg border border-slate-600 shadow-xl">
-                        <ul class="space-y-3 text-lg text-slate-300">
-                            <li><i class="fas fa-check-square text-sky-500 mr-2"></i> Lesson 3C - The Olympic Spirit</li>
-                            <li><i class="fas fa-check-square text-sky-500 mr-2"></i> Lesson 3D - Your city as your playground</li>
-                            <li><i class="fas fa-check-square text-sky-500 mr-2"></i> Lesson 4A - What's on</li>
-                            <li><i class="fas fa-check-square text-sky-500 mr-2"></i> Lesson 4C - Don't judge a book by its film</li>
-                        </ul>
-                    </div>
-                    <p class="mt-8 text-2xl font-bold text-sky-400 animate-pulse">Good luck, Investigators! 🕵️‍♂️</p>
-                </div>
+        <!-- ================= MISSION SUCCESS ================= -->
+        <section id="mission-5" class="mission-section text-center py-20">
+            <i class="fas fa-shield-check text-8xl mb-8 text-green-500 animate-pulse"></i>
+            <h2 class="text-5xl cyber-font text-white mb-6">MAINFRAME COMPROMISED</h2>
+            <p class="text-2xl text-blue-400 mb-4">ACCESS GRANTED.</p>
+            <p class="mb-10 text-lg opacity-80 max-w-2xl mx-auto leading-relaxed text-slate-300">
+                Excellent work, Agent. You have successfully bypassed all grammatical firewalls and neutralized the threat. 
+                Your linguistic algorithms are flawless. Return to base for debriefing.
+            </p>
+            <div class="inline-block bg-slate-900 border border-green-500 p-6 rounded-lg text-left">
+                <h4 class="text-white font-bold mb-3 border-b border-slate-700 pb-2">Mission Log:</h4>
+                <ul class="space-y-2 text-sm text-slate-400 font-sans">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Present Perfect Continuous verified.</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Contrast Linkers routed.</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Future plans predicted.</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Emphasis matrices aligned.</li>
+                </ul>
             </div>
         </section>
 
     </main>
 
     <script>
-        // --- Sound Effects using Tone.js ---
-        let synth;
-        let isAudioReady = false;
+        // --- AUDIO ENGINE (Tone.js) ---
+        let synth, bassSynth, loop;
+        let isMusicPlaying = false;
+        let audioInitialized = false;
 
-        async function initAudio() {
-            if(!isAudioReady) {
-                await Tone.start();
-                synth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: "sawtooth" }
-                }).toDestination();
-                synth.volume.value = -10;
-                isAudioReady = true;
+        function initAudio() {
+            if (audioInitialized) return;
+            audioInitialized = true;
+            
+            // Start Tone context
+            Tone.start();
+
+            // Synth for melody (Cyberpunk arpeggio)
+            synth = new Tone.Synth({
+                oscillator: { type: "sawtooth" },
+                envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
+            }).toDestination();
+            synth.volume.value = -15;
+
+            // Synth for bass
+            bassSynth = new Tone.MembraneSynth().toDestination();
+            bassSynth.volume.value = -12;
+
+            // Notes for a suspenseful loop
+            const notes = ["C3", "D#3", "G3", "C4", "A#3", "G3", "D#3", "C3"];
+            let step = 0;
+
+            loop = new Tone.Loop((time) => {
+                let note = notes[step % notes.length];
+                synth.triggerAttackRelease(note, "8n", time);
+                
+                // Add a bass hit on the first beat of the measure
+                if (step % 8 === 0) {
+                    bassSynth.triggerAttackRelease("C1", "4n", time);
+                }
+                if (step % 8 === 4) {
+                    bassSynth.triggerAttackRelease("G1", "8n", time);
+                }
+                
+                step++;
+            }, "16n");
+
+            Tone.Transport.bpm.value = 110;
+        }
+
+        function toggleMusic() {
+            if (!audioInitialized) initAudio();
+            
+            const icon = document.getElementById('music-icon');
+            
+            if (isMusicPlaying) {
+                Tone.Transport.stop();
+                loop.stop();
+                icon.className = "fas fa-volume-mute text-red-500";
+                isMusicPlaying = false;
+            } else {
+                Tone.Transport.start();
+                loop.start(0);
+                icon.className = "fas fa-volume-up text-green-500";
+                isMusicPlaying = true;
             }
         }
 
         function playSound(type) {
-            if(!isAudioReady) initAudio();
-            if(!synth) return;
-            
+            if (!audioInitialized) initAudio();
+            const fxSynth = new Tone.Synth().toDestination();
+            fxSynth.volume.value = -10;
+
             if(type === 'success') {
-                synth.triggerAttackRelease(["C5", "E5", "G5"], "8n");
+                fxSynth.triggerAttackRelease("C5", "16n");
+                setTimeout(() => fxSynth.triggerAttackRelease("E5", "8n"), 150);
             } else if (type === 'error') {
-                synth.triggerAttackRelease(["C3", "D#3"], "8n");
+                fxSynth.triggerAttackRelease("C3", "8n");
+                setTimeout(() => fxSynth.triggerAttackRelease("G2", "4n"), 150);
             } else if (type === 'unlock') {
-                const now = Tone.now();
-                synth.triggerAttackRelease("C4", "8n", now);
-                synth.triggerAttackRelease("E4", "8n", now + 0.1);
-                synth.triggerAttackRelease("G4", "8n", now + 0.2);
-                synth.triggerAttackRelease("C5", "4n", now + 0.3);
+                fxSynth.triggerAttackRelease("A4", "32n");
+                setTimeout(() => fxSynth.triggerAttackRelease("C5", "16n"), 100);
             }
         }
 
-        // Ambient Music logic (YouTube iframe)
-        let isMusicPlaying = false;
-        function toggleMusic() {
-            const btn = document.getElementById('play-music');
-            const container = document.getElementById('yt-player');
-            
-            if(!isMusicPlaying) {
-                // Insert iframe if not exists (Lofi Hip Hop radio)
-                if(container.innerHTML === "") {
-                    container.innerHTML = `<iframe width="0" height="0" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&loop=1&controls=0" frameborder="0" allow="autoplay" allowfullscreen></iframe>`;
-                }
-                btn.innerText = "BGM: ON";
-                btn.classList.replace('text-sky-400', 'text-green-400');
-                isMusicPlaying = true;
-            } else {
-                container.innerHTML = ""; // Kill iframe to stop audio
-                btn.innerText = "BGM: OFF";
-                btn.classList.replace('text-green-400', 'text-sky-400');
-                isMusicPlaying = false;
-            }
-        }
-
-        // --- Game Progression Logic ---
+        // --- GAME LOGIC ---
         let currentMission = 0;
-        const totalMissions = 5;
+        const totalMissions = 4;
 
         function updateProgress() {
             const pct = (currentMission / totalMissions) * 100;
@@ -515,7 +573,14 @@
         }
 
         function startMission(num) {
-            initAudio(); // Initialize audio context on first user click
+            // Inicializar áudio no primeiro clique do usuário
+            initAudio(); 
+            
+            // Ligar música automaticamente na Missão 1 se estiver desligada
+            if (num === 1 && !isMusicPlaying) {
+                toggleMusic();
+            }
+            
             playSound('unlock');
             
             document.querySelectorAll('.mission-section').forEach(sec => sec.classList.remove('active'));
@@ -526,85 +591,81 @@
             }, 500);
         }
 
-        function overrideMission() {
-            if(currentMission < totalMissions) startMission(currentMission + 1);
+        function overrideMission(num) {
+            startMission(num);
         }
 
-        // --- Validation Helper ---
+        // Validation Helper
         function validateInput(id, correctAnswers) {
             const input = document.getElementById(id);
-            if(!input) return false;
             let val = input.value.trim().toLowerCase().replace(/\s+/g, ' ').replace(/[.,!]/g, '');
-            input.classList.remove('success', 'error');
+            input.classList.remove('input-correct', 'input-error');
             
             if (correctAnswers.includes(val)) {
-                input.classList.add('success');
+                input.classList.add('input-correct');
                 return true;
             } else {
-                input.classList.add('error');
-                input.value = correctAnswers[0]; // Reveal answer on fail to keep pace
+                input.classList.add('input-error');
+                input.value = correctAnswers[0]; 
                 return false;
             }
         }
 
-        // --- Mission 1 (Pres Perf Cont) ---
-        function checkMission1() {
-            let p1 = validateInput('m1-1', ['has been hiding', "'s been hiding"]);
-            let p2 = validateInput('m1-2', ['have been tracking', "'ve been tracking"]);
-            let p3 = validateInput('m1-3', ['have you been hacking']);
-            let p4 = validateInput('m1-4', ['have not been recording', "haven't been recording"]);
-            
-            if(p1 && p2 && p3 && p4) { playSound('success'); setTimeout(() => startMission(2), 1500); }
-            else { playSound('error'); }
-        }
+        // Dropzone Logic
+        let activeWord = { link: null, adj: null };
+        let activeBtn = { link: null, adj: null };
 
-        // --- General Word Bank Logic (Missions 2 & 4) ---
-        let activeWord = { linker: null, adj: null };
-        let activeBtn = { linker: null, adj: null };
-
-        function selectWord(group, btn) {
-            const container = btn.parentElement;
-            container.querySelectorAll('.linker-btn').forEach(b => b.classList.remove('selected'));
-            if(activeBtn[group] === btn) { activeWord[group] = null; activeBtn[group] = null; return; }
-            
+        function selectWord(type, btn) {
+            document.querySelectorAll(`#${type}-bank .linker-btn`).forEach(b => b.classList.remove('selected'));
+            if(activeBtn[type] === btn) {
+                activeWord[type] = null; activeBtn[type] = null; return;
+            }
             btn.classList.add('selected');
-            activeWord[group] = btn.getAttribute('data-word');
-            activeBtn[group] = btn;
-            initAudio(); playSound('success'); // little blip
+            activeWord[type] = btn.getAttribute('data-word');
+            activeBtn[type] = btn;
         }
 
-        function fillWord(group, zone) {
-            if (zone.innerText !== '_____' && !activeWord[group]) {
+        function fillWord(type, zone) {
+            if (zone.innerText !== '_____' && !activeWord[type]) {
                 zone.innerText = '_____';
-                zone.classList.remove('filled', 'success', 'error');
+                zone.classList.remove('filled', 'error');
                 return;
             }
-            if (activeWord[group]) {
-                zone.innerText = activeWord[group];
-                zone.classList.remove('success', 'error');
+            if (activeWord[type]) {
+                zone.innerText = activeWord[type];
                 zone.classList.add('filled');
-                playSound('success');
+                zone.classList.remove('error');
             }
         }
 
-        function validateZones(answersDict) {
+        function validateZones(answersObj) {
             let allCorrect = true;
-            for(let id in answersDict) {
+            for(let id in answersObj) {
                 const el = document.getElementById(id);
-                if(!el) continue;
-                if(el.innerText === answersDict[id]) {
-                    el.classList.add('success'); el.classList.remove('error');
+                if(el.innerText === answersObj[id]) {
+                    el.classList.add('filled'); el.classList.remove('error');
                 } else {
-                    el.innerText = answersDict[id]; // Reveal
-                    el.classList.add('error'); el.classList.remove('success');
+                    el.innerText = answersObj[id];
+                    el.classList.add('error'); el.classList.remove('filled');
                     allCorrect = false;
                 }
             }
             return allCorrect;
         }
 
+        // --- Mission 1 (Pres Perf Cont) ---
+        function checkMission1() {
+            let v1 = validateInput('m1-1', ['have been working', "'ve been working"]);
+            let v2 = validateInput('m1-2', ['has been driving', "'s been driving"]);
+            let v3 = validateInput('m1-3', ['have you been planning']);
+            let v4 = validateInput('m1-4', ['have not been communicating', "haven't been communicating"]);
+
+            if(v1 && v2 && v3 && v4) { playSound('success'); setTimeout(() => startMission(2), 1500); }
+            else { playSound('error'); }
+        }
+
         // --- Mission 2 (Linkers) ---
-        const linkerAns = { 'l1': 'In spite of', 'l2': 'Although', 'l3': 'but', 'l4': 'However,', 'l5': 'though.' };
+        const linkerAns = { 'l1': 'In spite of', 'l2': 'However,', 'l3': 'Although', 'l4': 'though.', 'l5': 'but' };
         function checkMission2() {
             if(validateZones(linkerAns)) { playSound('success'); setTimeout(() => startMission(3), 1500); }
             else { playSound('error'); }
@@ -617,6 +678,8 @@
             let v2 = validateInput('m3-v2', ['host', 'presenter']);
             let v3 = validateInput('m3-v3', ['prime time']);
             let v4 = validateInput('m3-v4', ['soap opera']);
+            let v5 = validateInput('m3-v5', ['documentary']);
+            let v6 = validateInput('m3-v6', ['season', 'series']);
             
             // Future
             let f1 = validateInput('m3-f1', ['is going to hit', "'s going to hit"]);
@@ -624,42 +687,32 @@
             let f3 = validateInput('m3-f3', ['will cut', "'ll cut"]);
             let f4 = validateInput('m3-f4', ['are going to destroy', "'re going to destroy"]);
 
-            if(v1 && v2 && v3 && v4 && f1 && f2 && f3 && f4) { playSound('success'); setTimeout(() => startMission(4), 1500); }
+            if(v1 && v2 && v3 && v4 && v5 && v6 && f1 && f2 && f3 && f4) { playSound('success'); setTimeout(() => startMission(4), 1500); }
             else { playSound('error'); }
         }
 
         // --- Mission 4 (Adjs & Comparatives) ---
-        const adjAns = { 'a1': 'short-tempered', 'a2': 'spell-binding', 'a3': 'well-known', 'a4': 'best-selling', 'a5': 'thought-provoking' };
+        const adjAns = { 'a1': 'short-tempered', 'a2': 'spell-binding', 'a3': 'well-known', 'a4': 'best-selling', 'a5': 'thought-provoking', 'a6': 'good-mannered' };
         function checkMission4() {
             let adjsCorrect = validateZones(adjAns);
             
-            let c1 = validateInput('m4-c1', ['much more dangerous', 'a lot more dangerous', 'far more dangerous']);
-            let c2 = validateInput('m4-c2', ['a bit longer', 'a little longer']);
-            let c3 = validateInput('m4-c3', ['just as fast as']);
+            let c1 = validateInput('m4-c1', ['much more difficult', 'a lot more difficult', 'far more difficult']);
+            let c2 = validateInput('m4-c2', ['far faster', 'much faster', 'a lot faster']);
+            let c3 = validateInput('m4-c3', ['a bit more careful', 'a little more careful']);
+            let c4 = validateInput('m4-c4', ['just as strong as']);
 
-            if(adjsCorrect && c1 && c2 && c3) { playSound('success'); setTimeout(() => startMission(5), 1500); }
-            else { playSound('error'); }
-        }
-
-        // --- Mission 5 (Exit) ---
-        function submitExitTicket() {
-            const input = document.getElementById('exit-ticket');
-            const warning = document.getElementById('exit-warning');
-            
-            if(input.value.trim().length > 10) {
-                warning.classList.add('hidden');
-                playSound('unlock');
-                document.getElementById('btn-finish').innerText = "LOG SAVED.";
-                document.getElementById('btn-finish').disabled = true;
-                
-                const hw = document.getElementById('hw-display');
-                hw.classList.remove('hidden');
-                setTimeout(() => hw.scrollIntoView({ behavior: 'smooth' }), 200);
-            } else {
-                playSound('error');
-                warning.classList.remove('hidden');
-                input.classList.add('border-red-500');
-                setTimeout(() => input.classList.remove('border-red-500'), 2000);
+            if(adjsCorrect && c1 && c2 && c3 && c4) { 
+                playSound('success'); 
+                setTimeout(() => {
+                    startMission(5);
+                    // Mudar a música para vitória (acelerar e subir de tom) se a música estiver tocando
+                    if(isMusicPlaying) {
+                        Tone.Transport.bpm.rampTo(140, 2);
+                        synth.set({ oscillator: { type: "square" } });
+                    }
+                }, 1500); 
+            } else { 
+                playSound('error'); 
             }
         }
     </script>
