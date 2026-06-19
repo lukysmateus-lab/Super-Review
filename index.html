@@ -183,7 +183,8 @@
             <button onclick="toggleMusic()" id="music-btn" class="text-green-500 hover:text-white transition-colors text-xl" title="Toggle BGM">
                 <i class="fas fa-volume-mute" id="music-icon"></i>
             </button>
-            <div class="mt-2 text-xs opacity-50">SYSTEM STATUS: <span class="text-green-400 animate-pulse">ONLINE</span></div>
+            <div id="global-timer" class="text-2xl font-bold cyber-font text-red-500 mt-2 tracking-widest animate-pulse" title="Mission Clock">00:00</div>
+            <div class="mt-1 text-xs opacity-50">SYSTEM STATUS: <span class="text-green-400 animate-pulse">ONLINE</span></div>
         </div>
     </header>
 
@@ -213,38 +214,38 @@
             </button>
         </section>
 
-        <!-- ================= MISSION 1: PRES PERF CONT ================= -->
+        <!-- ================= MISSION 1: WARM UP ================= -->
         <section id="mission-1" class="mission-section">
             <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                 <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
                     <span class="text-3xl text-blue-500"><i class="fas fa-fingerprint"></i></span>
                     <div>
-                        <h2 class="text-2xl cyber-font text-white">FIREWALL 1: The Interrogation</h2>
-                        <p class="text-xs tracking-widest opacity-70">TARGET: PRESENT PERFECT CONTINUOUS</p>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 1: System Diagnostics</h2>
+                        <p class="text-xs tracking-widest opacity-70">TARGET: GENERAL WARM-UP</p>
                     </div>
                 </div>
 
                 <p class="mb-6 opacity-90 text-sm md:text-base text-slate-300">
-                    The suspect has been captured, but his alibis are incomplete. 
-                    Reconstruct his timeline using <span class="text-white font-bold">have/has been + verb(ing)</span>.
+                    Before accessing the mainframe, the system requires a quick diagnostic check. 
+                    Prove your linguistic skills by completing this mixed warm-up challenge.
                 </p>
 
                 <div class="space-y-6 text-lg">
                     <div class="flex flex-col md:flex-row md:items-center gap-3">
                         <span class="text-slate-500 font-bold w-6">01</span>
-                        <p class="flex-1">"I swear, detective! I <input type="text" id="m1-1" class="cyber-input w-48" placeholder="(work)"> at the warehouse all night!"</p>
+                        <p class="flex-1"><span class="text-xs text-blue-400 block mb-1">TV VOCABULARY</span>The person who introduces guests on a show is the <input type="text" id="m1-1" class="cyber-input w-32" placeholder="...">.</p>
                     </div>
                     <div class="flex flex-col md:flex-row md:items-center gap-3">
                         <span class="text-slate-500 font-bold w-6">02</span>
-                        <p class="flex-1">"My partner is exhausted because she <input type="text" id="m1-2" class="cyber-input w-48" placeholder="(drive)"> the getaway car for 10 hours."</p>
+                        <p class="flex-1"><span class="text-xs text-blue-400 block mb-1">LINKERS</span>We had the correct password, <input type="text" id="m1-2" class="cyber-input w-24" placeholder="..."> the door didn't open.</p>
                     </div>
                     <div class="flex flex-col md:flex-row md:items-center gap-3">
                         <span class="text-slate-500 font-bold w-6">03</span>
-                        <p class="flex-1">"How long <input type="text" id="m1-3" class="cyber-input w-64" placeholder="(you / plan)"> this heist?"</p>
+                        <p class="flex-1"><span class="text-xs text-blue-400 block mb-1">FUTURE INTENTION</span>I packed my gear. I <input type="text" id="m1-3" class="cyber-input w-48" placeholder="(hack)"> the server tonight.</p>
                     </div>
                     <div class="flex flex-col md:flex-row md:items-center gap-3">
                         <span class="text-slate-500 font-bold w-6">04</span>
-                        <p class="flex-1">"They <input type="text" id="m1-4" class="cyber-input w-56" placeholder="(not / communicate)"> recently. The radios are dead."</p>
+                        <p class="flex-1"><span class="text-xs text-blue-400 block mb-1">COMPARATIVES (BIG DIFF)</span>This encryption is <input type="text" id="m1-4" class="cyber-input w-32" placeholder="..."> more difficult than the last one.</p>
                     </div>
                 </div>
 
@@ -459,22 +460,69 @@
             </div>
         </section>
 
+        <!-- ================= MISSION 5: VOCAL PROTOCOL (SPEAKING) ================= -->
+        <section id="mission-5" class="mission-section">
+            <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
+                    <span class="text-3xl text-pink-500"><i class="fas fa-microphone-alt"></i></span>
+                    <div>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 5: Voice Authentication</h2>
+                        <p class="text-xs tracking-widest opacity-70">TARGET: SPEAKING - TV PROGRAMS</p>
+                    </div>
+                </div>
+
+                <p class="mb-6 opacity-90 text-sm md:text-base text-slate-300">
+                    Agent, the final extraction requires vocal authorization. Discuss the following broadcast formats with your partner. 
+                    Give an example of each and state why you like or dislike it. Click to verify once discussed.
+                </p>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+                    <button class="voice-card bg-slate-800 border border-slate-600 p-4 rounded text-center transition-all hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.4)] text-slate-300" onclick="toggleVoice(this, 'fas fa-utensils')">
+                        <i class="fas fa-utensils text-3xl mb-2 text-pink-400"></i><br>
+                        <span class="font-bold">Cooking Show</span>
+                    </button>
+                    <button class="voice-card bg-slate-800 border border-slate-600 p-4 rounded text-center transition-all hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.4)] text-slate-300" onclick="toggleVoice(this, 'fas fa-pencil-alt')">
+                        <i class="fas fa-pencil-alt text-3xl mb-2 text-pink-400"></i><br>
+                        <span class="font-bold">Cartoon</span>
+                    </button>
+                    <button class="voice-card bg-slate-800 border border-slate-600 p-4 rounded text-center transition-all hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.4)] text-slate-300" onclick="toggleVoice(this, 'fas fa-video')">
+                        <i class="fas fa-video text-3xl mb-2 text-pink-400"></i><br>
+                        <span class="font-bold">Reality Show</span>
+                    </button>
+                    <button class="voice-card bg-slate-800 border border-slate-600 p-4 rounded text-center transition-all hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.4)] text-slate-300" onclick="toggleVoice(this, 'fas fa-futbol')">
+                        <i class="fas fa-futbol text-3xl mb-2 text-pink-400"></i><br>
+                        <span class="font-bold">Sports TV</span>
+                    </button>
+                    <button class="voice-card bg-slate-800 border border-slate-600 p-4 rounded text-center transition-all hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.4)] text-slate-300 md:col-span-2" onclick="toggleVoice(this, 'fas fa-theater-masks')">
+                        <i class="fas fa-theater-masks text-3xl mb-2 text-pink-400"></i><br>
+                        <span class="font-bold">Soap Opera</span>
+                    </button>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <button onclick="checkMission5()" class="cyber-btn text-xl px-12 py-4"><i class="fas fa-download mr-2"></i> EXTRACT DATA</button>
+                </div>
+            </div>
+        </section>
+
         <!-- ================= MISSION SUCCESS ================= -->
-        <section id="mission-5" class="mission-section text-center py-20">
+        <section id="mission-6" class="mission-section text-center py-20">
             <i class="fas fa-shield-check text-8xl mb-8 text-green-500 animate-pulse"></i>
             <h2 class="text-5xl cyber-font text-white mb-6">MAINFRAME COMPROMISED</h2>
             <p class="text-2xl text-blue-400 mb-4">ACCESS GRANTED.</p>
+            <h3 id="final-time-display" class="text-4xl text-yellow-400 mb-8 cyber-font glitch-text" data-text="EXTRACTION TIME: 00:00">EXTRACTION TIME: 00:00</h3>
             <p class="mb-10 text-lg opacity-80 max-w-2xl mx-auto leading-relaxed text-slate-300">
-                Excellent work, Agent. You have successfully bypassed all grammatical firewalls and neutralized the threat. 
+                Excellent work, Agent. You have successfully bypassed all grammatical firewalls and neutralized the threat in record time. 
                 Your linguistic algorithms are flawless. Return to base for debriefing.
             </p>
             <div class="inline-block bg-slate-900 border border-green-500 p-6 rounded-lg text-left">
                 <h4 class="text-white font-bold mb-3 border-b border-slate-700 pb-2">Mission Log:</h4>
                 <ul class="space-y-2 text-sm text-slate-400 font-sans">
-                    <li><i class="fas fa-check text-green-500 mr-2"></i> Present Perfect Continuous verified.</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> System Diagnostics verified.</li>
                     <li><i class="fas fa-check text-green-500 mr-2"></i> Contrast Linkers routed.</li>
                     <li><i class="fas fa-check text-green-500 mr-2"></i> Future plans predicted.</li>
                     <li><i class="fas fa-check text-green-500 mr-2"></i> Emphasis matrices aligned.</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Voice Authentication confirmed.</li>
                 </ul>
             </div>
         </section>
@@ -564,12 +612,43 @@
 
         // --- GAME LOGIC ---
         let currentMission = 0;
-        const totalMissions = 4;
+        const totalMissions = 5;
+
+        // --- GLOBAL TIMER LOGIC ---
+        let timerInterval;
+        let secondsElapsed = 0;
+        let timerStarted = false;
+
+        function updateTimerUI() {
+            let m = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
+            let s = (secondsElapsed % 60).toString().padStart(2, '0');
+            document.getElementById('global-timer').innerText = `${m}:${s}`;
+        }
+
+        function startGlobalTimer() {
+            if(timerStarted) return;
+            timerStarted = true;
+            document.getElementById('global-timer').classList.remove('animate-pulse'); // Remove o piscar ao iniciar
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                updateTimerUI();
+            }, 1000);
+        }
+
+        function stopGlobalTimer() {
+            clearInterval(timerInterval);
+            let m = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
+            let s = (secondsElapsed % 60).toString().padStart(2, '0');
+            let finalStr = `EXTRACTION TIME: ${m}:${s}`;
+            let finalDisplay = document.getElementById('final-time-display');
+            finalDisplay.innerText = finalStr;
+            finalDisplay.setAttribute('data-text', finalStr);
+        }
 
         function updateProgress() {
-            const pct = (currentMission / totalMissions) * 100;
+            const pct = Math.min((currentMission / totalMissions) * 100, 100);
             document.getElementById('progress-bar').style.width = `${pct}%`;
-            document.getElementById('progress-text').innerText = `${pct}%`;
+            document.getElementById('progress-text').innerText = `${Math.floor(pct)}%`;
         }
 
         function startMission(num) {
@@ -579,6 +658,16 @@
             // Ligar música automaticamente na Missão 1 se estiver desligada
             if (num === 1 && !isMusicPlaying) {
                 toggleMusic();
+            }
+
+            // Iniciar o relógio na primeira missão
+            if (num === 1) {
+                startGlobalTimer();
+            }
+
+            // Parar o relógio ao alcançar a tela de sucesso
+            if (num === 6) {
+                stopGlobalTimer();
             }
             
             playSound('unlock');
@@ -653,12 +742,12 @@
             return allCorrect;
         }
 
-        // --- Mission 1 (Pres Perf Cont) ---
+        // --- Mission 1 (Warm Up) ---
         function checkMission1() {
-            let v1 = validateInput('m1-1', ['have been working', "'ve been working"]);
-            let v2 = validateInput('m1-2', ['has been driving', "'s been driving"]);
-            let v3 = validateInput('m1-3', ['have you been planning']);
-            let v4 = validateInput('m1-4', ['have not been communicating', "haven't been communicating"]);
+            let v1 = validateInput('m1-1', ['host', 'presenter']);
+            let v2 = validateInput('m1-2', ['but', 'yet']);
+            let v3 = validateInput('m1-3', ['am going to hack', "'m going to hack"]);
+            let v4 = validateInput('m1-4', ['much', 'a lot', 'far']);
 
             if(v1 && v2 && v3 && v4) { playSound('success'); setTimeout(() => startMission(2), 1500); }
             else { playSound('error'); }
@@ -705,14 +794,45 @@
                 playSound('success'); 
                 setTimeout(() => {
                     startMission(5);
-                    // Mudar a música para vitória (acelerar e subir de tom) se a música estiver tocando
+                }, 1500); 
+            } else { 
+                playSound('error'); 
+            }
+        }
+
+        // --- Mission 5 (Vocal Protocol) ---
+        function toggleVoice(btn, originalIcon) {
+            btn.classList.toggle('bg-slate-800');
+            btn.classList.toggle('bg-pink-900');
+            btn.classList.toggle('border-pink-500');
+            btn.classList.toggle('text-white');
+            
+            let icon = btn.querySelector('i');
+            if(icon.classList.contains('fa-check-circle')) {
+                icon.className = `${originalIcon} text-3xl mb-2 text-pink-400`;
+            } else {
+                icon.className = 'fas fa-check-circle text-3xl mb-2 text-green-400';
+            }
+        }
+
+        function checkMission5() {
+            let cards = document.querySelectorAll('.voice-card');
+            let allVerified = true;
+            cards.forEach(card => {
+                if(!card.classList.contains('bg-pink-900')) allVerified = false;
+            });
+
+            if(allVerified) {
+                playSound('success'); 
+                setTimeout(() => {
+                    startMission(6);
                     if(isMusicPlaying) {
                         Tone.Transport.bpm.rampTo(140, 2);
                         synth.set({ oscillator: { type: "square" } });
                     }
                 }, 1500); 
-            } else { 
-                playSound('error'); 
+            } else {
+                playSound('error');
             }
         }
     </script>
