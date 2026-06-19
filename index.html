@@ -256,13 +256,55 @@
             </div>
         </section>
 
-        <!-- ================= MISSION 2: LINKERS ================= -->
+        <!-- ================= MISSION 2: PRES PERF CONT ================= -->
         <section id="mission-2" class="mission-section">
+            <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
+                    <span class="text-3xl text-cyan-500"><i class="fas fa-history"></i></span>
+                    <div>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 2: The Interrogation</h2>
+                        <p class="text-xs tracking-widest opacity-70">TARGET: PRESENT PERFECT CONTINUOUS</p>
+                    </div>
+                </div>
+
+                <p class="mb-6 opacity-90 text-sm md:text-base text-slate-300">
+                    The suspect has been captured, but his alibis are incomplete. 
+                    Reconstruct his timeline using <span class="text-white font-bold">have/has been + verb(ing)</span>.
+                </p>
+
+                <div class="space-y-6 text-lg">
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <span class="text-slate-500 font-bold w-6">01</span>
+                        <p class="flex-1">"I swear, detective! I <input type="text" id="m2-1" class="cyber-input w-48" placeholder="(work)"> at the warehouse all night!"</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <span class="text-slate-500 font-bold w-6">02</span>
+                        <p class="flex-1">"My partner is exhausted because she <input type="text" id="m2-2" class="cyber-input w-48" placeholder="(drive)"> the getaway car for 10 hours."</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <span class="text-slate-500 font-bold w-6">03</span>
+                        <p class="flex-1">"How long <input type="text" id="m2-3" class="cyber-input w-64" placeholder="(you / plan)"> this heist?"</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <span class="text-slate-500 font-bold w-6">04</span>
+                        <p class="flex-1">"They <input type="text" id="m2-4" class="cyber-input w-56" placeholder="(not / communicate)"> recently. The radios are dead."</p>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex justify-between items-center">
+                    <button onclick="overrideMission(3)" class="text-xs text-slate-600 hover:text-slate-400 underline">OVERRIDE</button>
+                    <button onclick="checkMission2()" class="cyber-btn"><i class="fas fa-unlock-alt mr-2"></i> DECRYPT</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MISSION 3: LINKERS ================= -->
+        <section id="mission-3" class="mission-section">
             <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                 <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
                     <span class="text-3xl text-purple-500"><i class="fas fa-network-wired"></i></span>
                     <div>
-                        <h2 class="text-2xl cyber-font text-white">FIREWALL 2: System Bypass</h2>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 3: System Bypass</h2>
                         <p class="text-xs tracking-widest opacity-70">TARGET: CONTRAST LINKERS</p>
                     </div>
                 </div>
@@ -305,19 +347,19 @@
                 </div>
 
                 <div class="mt-10 flex justify-between items-center">
-                    <button onclick="overrideMission(3)" class="text-xs text-slate-600 hover:text-slate-400 underline">OVERRIDE</button>
-                    <button onclick="checkMission2()" class="cyber-btn"><i class="fas fa-plug mr-2"></i> CONNECT</button>
+                    <button onclick="overrideMission(4)" class="text-xs text-slate-600 hover:text-slate-400 underline">OVERRIDE</button>
+                    <button onclick="checkMission3()" class="cyber-btn"><i class="fas fa-plug mr-2"></i> CONNECT</button>
                 </div>
             </div>
         </section>
 
-        <!-- ================= MISSION 3: VOCAB & FUTURE ================= -->
-        <section id="mission-3" class="mission-section">
+        <!-- ================= MISSION 4: VOCAB & FUTURE ================= -->
+        <section id="mission-4" class="mission-section">
             <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                 <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
                     <span class="text-3xl text-yellow-500"><i class="fas fa-satellite-dish"></i></span>
                     <div>
-                        <h2 class="text-2xl cyber-font text-white">FIREWALL 3: Media Intercept</h2>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 4: Media Intercept</h2>
                         <p class="text-xs tracking-widest opacity-70">TARGET: TV VOCABULARY & FUTURE PLANS</p>
                     </div>
                 </div>
@@ -328,27 +370,27 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
                             <span class="text-2xl" title="People who compete">🏃‍♂️🏆</span>
-                            <input type="text" id="m3-v1" class="cyber-input w-40" placeholder="Word...">
+                            <input type="text" id="m4-v1" class="cyber-input w-40" placeholder="Word...">
                         </div>
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
                             <span class="text-2xl" title="Person who introduces guests">🎤🤵‍♂️</span>
-                            <input type="text" id="m3-v2" class="cyber-input w-40" placeholder="Word...">
+                            <input type="text" id="m4-v2" class="cyber-input w-40" placeholder="Word...">
                         </div>
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
                             <span class="text-2xl" title="The evening hours (8pm - 11pm)">🌙📺</span>
-                            <input type="text" id="m3-v3" class="cyber-input w-40" placeholder="2 Words...">
+                            <input type="text" id="m4-v3" class="cyber-input w-40" placeholder="2 Words...">
                         </div>
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
                             <span class="text-2xl" title="A dramatic series with many episodes">🎭😭📺</span>
-                            <input type="text" id="m3-v4" class="cyber-input w-40" placeholder="2 Words...">
+                            <input type="text" id="m4-v4" class="cyber-input w-40" placeholder="2 Words...">
                         </div>
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
                             <span class="text-2xl" title="A show about real life, animals or nature">🌍🎥</span>
-                            <input type="text" id="m3-v5" class="cyber-input w-40" placeholder="Word...">
+                            <input type="text" id="m4-v5" class="cyber-input w-40" placeholder="Word...">
                         </div>
                         <div class="bg-slate-800 p-4 rounded border border-slate-700 flex items-center justify-between">
                             <span class="text-2xl" title="A set of episodes of a TV show">🗓️📺</span>
-                            <input type="text" id="m3-v6" class="cyber-input w-40" placeholder="Word...">
+                            <input type="text" id="m4-v6" class="cyber-input w-40" placeholder="Word...">
                         </div>
                     </div>
                 </div>
@@ -361,37 +403,37 @@
                     <div class="space-y-4 text-lg">
                         <div class="bg-slate-800/40 p-4 border-l-4 border-yellow-500 rounded">
                             <p class="text-xs text-yellow-500 mb-1">INTENTION / PLAN</p>
-                            The hurricane <input type="text" id="m3-f1" class="cyber-input w-40 mx-2" placeholder="(hit)"> the coast soon. We tracked its path.
+                            The hurricane <input type="text" id="m4-f1" class="cyber-input w-40 mx-2" placeholder="(hit)"> the coast soon. We tracked its path.
                         </div>
                         <div class="bg-slate-800/40 p-4 border-l-4 border-yellow-500 rounded">
                             <p class="text-xs text-yellow-500 mb-1">ARRANGEMENT (DATE/TIME SET)</p>
-                            The backup team <input type="text" id="m3-f2" class="cyber-input w-40 mx-2" placeholder="(arrive)"> at 06:00 AM tomorrow.
+                            The backup team <input type="text" id="m4-f2" class="cyber-input w-40 mx-2" placeholder="(arrive)"> at 06:00 AM tomorrow.
                         </div>
                         <div class="bg-slate-800/40 p-4 border-l-4 border-yellow-500 rounded">
                             <p class="text-xs text-yellow-500 mb-1">SPONTANEOUS DECISION</p>
-                            "The alarm is ringing!" - "Don't worry, I <input type="text" id="m3-f3" class="cyber-input w-32 mx-2" placeholder="(cut)"> the red wire."
+                            "The alarm is ringing!" - "Don't worry, I <input type="text" id="m4-f3" class="cyber-input w-32 mx-2" placeholder="(cut)"> the red wire."
                         </div>
                         <div class="bg-slate-800/40 p-4 border-l-4 border-yellow-500 rounded">
                             <p class="text-xs text-yellow-500 mb-1">INTENTION</p>
-                            They packed explosives. They <input type="text" id="m3-f4" class="cyber-input w-56 mx-2" placeholder="(destroy)"> the server room.
+                            They packed explosives. They <input type="text" id="m4-f4" class="cyber-input w-56 mx-2" placeholder="(destroy)"> the server room.
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-10 flex justify-between items-center">
-                    <button onclick="overrideMission(4)" class="text-xs text-slate-600 hover:text-slate-400 underline">OVERRIDE</button>
-                    <button onclick="checkMission3()" class="cyber-btn"><i class="fas fa-satellite mr-2"></i> INTERCEPT</button>
+                    <button onclick="overrideMission(5)" class="text-xs text-slate-600 hover:text-slate-400 underline">OVERRIDE</button>
+                    <button onclick="checkMission4()" class="cyber-btn"><i class="fas fa-satellite mr-2"></i> INTERCEPT</button>
                 </div>
             </div>
         </section>
 
-        <!-- ================= MISSION 4: ADJS & COMPARATIVES ================= -->
-        <section id="mission-4" class="mission-section">
+        <!-- ================= MISSION 5: ADJS & COMPARATIVES ================= -->
+        <section id="mission-5" class="mission-section">
             <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                 <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
                     <span class="text-3xl text-green-500"><i class="fas fa-biohazard"></i></span>
                     <div>
-                        <h2 class="text-2xl cyber-font text-white">FIREWALL 4: The Final Cipher</h2>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 5: The Final Cipher</h2>
                         <p class="text-xs tracking-widest opacity-70">TARGET: COMPOUND ADJS & EMPHASIS</p>
                     </div>
                 </div>
@@ -437,36 +479,36 @@
                     <div class="space-y-4 text-lg">
                         <div class="flex items-center gap-3">
                             <i class="fas fa-angle-double-up text-red-500" title="Big Difference"></i>
-                            <p class="flex-1">This encryption is <input type="text" id="m4-c1" class="cyber-input w-56" placeholder="(much / difficult)"> than the last one.</p>
+                            <p class="flex-1">This encryption is <input type="text" id="m5-c1" class="cyber-input w-56" placeholder="(much / difficult)"> than the last one.</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="fas fa-angle-double-up text-red-500" title="Big Difference"></i>
-                            <p class="flex-1">Our new supercomputer is <input type="text" id="m4-c2" class="cyber-input w-48" placeholder="(far / fast)"> than theirs.</p>
+                            <p class="flex-1">Our new supercomputer is <input type="text" id="m5-c2" class="cyber-input w-48" placeholder="(far / fast)"> than theirs.</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="fas fa-angle-up text-yellow-500" title="Small Difference"></i>
-                            <p class="flex-1">We need to be <input type="text" id="m4-c3" class="cyber-input w-56" placeholder="(a bit / careful)"> in this area.</p>
+                            <p class="flex-1">We need to be <input type="text" id="m5-c3" class="cyber-input w-56" placeholder="(a bit / careful)"> in this area.</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="fas fa-equals text-blue-500" title="No Difference"></i>
-                            <p class="flex-1">Agent X is <input type="text" id="m4-c4" class="cyber-input w-48" placeholder="(just as / strong)"> Agent Y.</p>
+                            <p class="flex-1">Agent X is <input type="text" id="m5-c4" class="cyber-input w-48" placeholder="(just as / strong)"> Agent Y.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-10 text-center">
-                    <button onclick="checkMission4()" class="cyber-btn text-xl px-12 py-4"><i class="fas fa-hackerrank mr-2"></i> EXECUTE FINAL HACK</button>
+                    <button onclick="checkMission5()" class="cyber-btn text-xl px-12 py-4"><i class="fas fa-hackerrank mr-2"></i> EXECUTE FINAL HACK</button>
                 </div>
             </div>
         </section>
 
-        <!-- ================= MISSION 5: VOCAL PROTOCOL (SPEAKING) ================= -->
-        <section id="mission-5" class="mission-section">
+        <!-- ================= MISSION 6: VOCAL PROTOCOL (SPEAKING) ================= -->
+        <section id="mission-6" class="mission-section">
             <div class="bg-slate-900/80 border border-slate-700 p-6 md:p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                 <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
                     <span class="text-3xl text-pink-500"><i class="fas fa-microphone-alt"></i></span>
                     <div>
-                        <h2 class="text-2xl cyber-font text-white">FIREWALL 5: Voice Authentication</h2>
+                        <h2 class="text-2xl cyber-font text-white">FIREWALL 6: Voice Authentication</h2>
                         <p class="text-xs tracking-widest opacity-70">TARGET: SPEAKING - TV PROGRAMS</p>
                     </div>
                 </div>
@@ -500,13 +542,13 @@
                 </div>
 
                 <div class="mt-10 text-center">
-                    <button onclick="checkMission5()" class="cyber-btn text-xl px-12 py-4"><i class="fas fa-download mr-2"></i> EXTRACT DATA</button>
+                    <button onclick="checkMission6()" class="cyber-btn text-xl px-12 py-4"><i class="fas fa-download mr-2"></i> EXTRACT DATA</button>
                 </div>
             </div>
         </section>
 
         <!-- ================= MISSION SUCCESS ================= -->
-        <section id="mission-6" class="mission-section text-center py-20">
+        <section id="mission-7" class="mission-section text-center py-20">
             <i class="fas fa-shield-check text-8xl mb-8 text-green-500 animate-pulse"></i>
             <h2 class="text-5xl cyber-font text-white mb-6">MAINFRAME COMPROMISED</h2>
             <p class="text-2xl text-blue-400 mb-4">ACCESS GRANTED.</p>
@@ -519,6 +561,7 @@
                 <h4 class="text-white font-bold mb-3 border-b border-slate-700 pb-2">Mission Log:</h4>
                 <ul class="space-y-2 text-sm text-slate-400 font-sans">
                     <li><i class="fas fa-check text-green-500 mr-2"></i> System Diagnostics verified.</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Present Perfect Continuous confirmed.</li>
                     <li><i class="fas fa-check text-green-500 mr-2"></i> Contrast Linkers routed.</li>
                     <li><i class="fas fa-check text-green-500 mr-2"></i> Future plans predicted.</li>
                     <li><i class="fas fa-check text-green-500 mr-2"></i> Emphasis matrices aligned.</li>
@@ -612,7 +655,7 @@
 
         // --- GAME LOGIC ---
         let currentMission = 0;
-        const totalMissions = 5;
+        const totalMissions = 7;
 
         // --- GLOBAL TIMER LOGIC ---
         let timerInterval;
@@ -628,7 +671,7 @@
         function startGlobalTimer() {
             if(timerStarted) return;
             timerStarted = true;
-            document.getElementById('global-timer').classList.remove('animate-pulse'); // Remove o piscar ao iniciar
+            document.getElementById('global-timer').classList.remove('animate-pulse');
             timerInterval = setInterval(() => {
                 secondsElapsed++;
                 updateTimerUI();
@@ -665,8 +708,8 @@
                 startGlobalTimer();
             }
 
-            // Parar o relógio ao alcançar a tela de sucesso
-            if (num === 6) {
+            // Parar o relógio ao alcançar a tela final de sucesso (Missão 7)
+            if (num === 7) {
                 stopGlobalTimer();
             }
             
@@ -687,6 +730,7 @@
         // Validation Helper
         function validateInput(id, correctAnswers) {
             const input = document.getElementById(id);
+            if (!input) return false;
             let val = input.value.trim().toLowerCase().replace(/\s+/g, ' ').replace(/[.,!]/g, '');
             input.classList.remove('input-correct', 'input-error');
             
@@ -731,6 +775,7 @@
             let allCorrect = true;
             for(let id in answersObj) {
                 const el = document.getElementById(id);
+                if (!el) continue;
                 if(el.innerText === answersObj[id]) {
                     el.classList.add('filled'); el.classList.remove('error');
                 } else {
@@ -753,54 +798,65 @@
             else { playSound('error'); }
         }
 
-        // --- Mission 2 (Linkers) ---
-        const linkerAns = { 'l1': 'In spite of', 'l2': 'However,', 'l3': 'Although', 'l4': 'though.', 'l5': 'but' };
+        // --- Mission 2 (Pres Perf Cont) ---
         function checkMission2() {
-            if(validateZones(linkerAns)) { playSound('success'); setTimeout(() => startMission(3), 1500); }
+            let v1 = validateInput('m2-1', ['have been working', "'ve been working"]);
+            let v2 = validateInput('m2-2', ['has been driving', "'s been driving"]);
+            let v3 = validateInput('m2-3', ['have you been planning']);
+            let v4 = validateInput('m2-4', ['have not been communicating', "haven't been communicating"]);
+
+            if(v1 && v2 && v3 && v4) { playSound('success'); setTimeout(() => startMission(3), 1500); }
             else { playSound('error'); }
         }
 
-        // --- Mission 3 (Vocab & Future) ---
+        // --- Mission 3 (Linkers) ---
+        const linkerAns = { 'l1': 'In spite of', 'l2': 'However,', 'l3': 'Although', 'l4': 'though.', 'l5': 'but' };
         function checkMission3() {
+            if(validateZones(linkerAns)) { playSound('success'); setTimeout(() => startMission(4), 1500); }
+            else { playSound('error'); }
+        }
+
+        // --- Mission 4 (Vocab & Future) ---
+        function checkMission4() {
             // Vocab
-            let v1 = validateInput('m3-v1', ['contestants', 'competitors']);
-            let v2 = validateInput('m3-v2', ['host', 'presenter']);
-            let v3 = validateInput('m3-v3', ['prime time']);
-            let v4 = validateInput('m3-v4', ['soap opera']);
-            let v5 = validateInput('m3-v5', ['documentary']);
-            let v6 = validateInput('m3-v6', ['season', 'series']);
+            let v1 = validateInput('m4-v1', ['contestants', 'competitors']);
+            let v2 = validateInput('m4-v2', ['host', 'presenter']);
+            let v3 = validateInput('m4-v3', ['prime time']);
+            let v4 = validateInput('m4-v4', ['soap opera']);
+            let v5 = validateInput('m4-v5', ['documentary']);
+            let v6 = validateInput('m4-v6', ['season', 'series']);
             
             // Future
-            let f1 = validateInput('m3-f1', ['is going to hit', "'s going to hit"]);
-            let f2 = validateInput('m3-f2', ['is arriving', "'s arriving", 'is going to arrive']);
-            let f3 = validateInput('m3-f3', ['will cut', "'ll cut"]);
-            let f4 = validateInput('m3-f4', ['are going to destroy', "'re going to destroy"]);
+            let f1 = validateInput('m4-f1', ['is going to hit', "'s going to hit"]);
+            let f2 = validateInput('m4-f2', ['is arriving', "'s arriving", 'is going to arrive']);
+            let f3 = validateInput('m4-f3', ['will cut', "'ll cut"]);
+            let f4 = validateInput('m4-f4', ['are going to destroy', "'re going to destroy"]);
 
-            if(v1 && v2 && v3 && v4 && v5 && v6 && f1 && f2 && f3 && f4) { playSound('success'); setTimeout(() => startMission(4), 1500); }
+            if(v1 && v2 && v3 && v4 && v5 && v6 && f1 && f2 && f3 && f4) { playSound('success'); setTimeout(() => startMission(5), 1500); }
             else { playSound('error'); }
         }
 
-        // --- Mission 4 (Adjs & Comparatives) ---
+        // --- Mission 5 (Adjs & Comparatives) ---
         const adjAns = { 'a1': 'short-tempered', 'a2': 'spell-binding', 'a3': 'well-known', 'a4': 'best-selling', 'a5': 'thought-provoking', 'a6': 'good-mannered' };
-        function checkMission4() {
+        function checkMission5() {
             let adjsCorrect = validateZones(adjAns);
             
-            let c1 = validateInput('m4-c1', ['much more difficult', 'a lot more difficult', 'far more difficult']);
-            let c2 = validateInput('m4-c2', ['far faster', 'much faster', 'a lot faster']);
-            let c3 = validateInput('m4-c3', ['a bit more careful', 'a little more careful']);
-            let c4 = validateInput('m4-c4', ['just as strong as']);
+            let c1 = validateInput('m5-c1', ['much more difficult', 'a lot more difficult', 'far more difficult']);
+            let c2 = validateInput('m5-c2', ['far faster', 'much faster', 'a lot faster']);
+            let c3 = validateInput('m5-c3', ['a bit more careful', 'a little more careful']);
+            let c4 = validateInput('m5-c4', ['just as strong as']);
 
             if(adjsCorrect && c1 && c2 && c3 && c4) { 
                 playSound('success'); 
                 setTimeout(() => {
-                    startMission(5);
+                    startMission(6);
                 }, 1500); 
             } else { 
                 playSound('error'); 
             }
         }
 
-        // --- Mission 5 (Vocal Protocol) ---
+        // --- Mission 6 (Vocal Protocol) ---
         function toggleVoice(btn, originalIcon) {
             btn.classList.toggle('bg-slate-800');
             btn.classList.toggle('bg-pink-900');
@@ -815,7 +871,7 @@
             }
         }
 
-        function checkMission5() {
+        function checkMission6() {
             let cards = document.querySelectorAll('.voice-card');
             let allVerified = true;
             cards.forEach(card => {
@@ -825,7 +881,7 @@
             if(allVerified) {
                 playSound('success'); 
                 setTimeout(() => {
-                    startMission(6);
+                    startMission(7);
                     if(isMusicPlaying) {
                         Tone.Transport.bpm.rampTo(140, 2);
                         synth.set({ oscillator: { type: "square" } });
